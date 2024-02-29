@@ -58,5 +58,7 @@ export default Router;
         5. arrange div of card on fetch items, my cards.favortie 1
 		    6. דף txt להסבר על המערכת
         7. דף אודות על התממשקות האתר 
+        8. ביטול אפשרות ללחוצ על לייק שמתמש לא מחובר 
+        9. add ites fetch items ufter update and edd and delete  
   */
 }
