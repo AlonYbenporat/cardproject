@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
-import axios from 'axios';
-import { BaseUrlusers  } from '../Service/ConstantsApi';
+import React, { useState, useEffect } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
+import axios from "axios";
+import { BaseUrlusers } from "../Service/ConstantsApi";
 
-function EditUserDetails({ show, onClose,}) {
-  useEffect(() => {
-  }, [show]);
-  const userId = localStorage.getItem('userId');
-   const token = localStorage.getItem("token")
-   const userData = JSON.parse(localStorage.getItem('userProp51'));
-  const [formData, setFormData] = useState(
-    {
+function EditUserDetails({ show, onClose }) {
+  useEffect(() => {}, [show]);
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  const userData = JSON.parse(localStorage.getItem("userProp51"));
+  const [formData, setFormData] = useState({
     name: {
-      first:  "",
+      first: "",
       middle: "",
       last: "",
     },
@@ -32,31 +30,29 @@ function EditUserDetails({ show, onClose,}) {
       zip: "",
     },
     isBusiness: "",
-    classCode: ""
+    classCode: "",
   });
 
   useEffect(() => {
-    console.log('userdata-Edit:', userData)
+    console.log("userdata-Edit:", userData);
     if (userData) {
       setFormData(userData);
     }
   }, []);
   const handleClose = () => {
     onClose();
-
   };
 
- 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value
+      [name]: value,
     }));
   };
   const handleNameChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
       name: {
         ...prevFormData.name,
@@ -64,10 +60,10 @@ function EditUserDetails({ show, onClose,}) {
       },
     }));
   };
-  
+
   const handleaddressChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevFormData => ({
+    setFormData((prevFormData) => ({
       ...prevFormData,
       address: {
         ...prevFormData.address,
@@ -75,42 +71,51 @@ function EditUserDetails({ show, onClose,}) {
       },
     }));
   };
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
-const { _id: id, name, image, address,email,isAdmin,isBusiness,classCode,createdAt,password,...rest } = formData;
-const nameWithoutId = { ...name };
-delete nameWithoutId._id;
-const imageWithoutId = { ...image };
-delete imageWithoutId._id;
-const addressWithoutId = { ...address };
-delete addressWithoutId._id;
-const formDataWithoutId = {
-  ...rest,
-  name: nameWithoutId,
-  image: imageWithoutId,
-  address: addressWithoutId
-};
+    const {
+      _id: id,
+      name,
+      image,
+      address,
+      email,
+      isAdmin,
+      isBusiness,
+      classCode,
+      createdAt,
+      password,
+      ...rest
+    } = formData;
+    const nameWithoutId = { ...name };
+    delete nameWithoutId._id;
+    const imageWithoutId = { ...image };
+    delete imageWithoutId._id;
+    const addressWithoutId = { ...address };
+    delete addressWithoutId._id;
+    const formDataWithoutId = {
+      ...rest,
+      name: nameWithoutId,
+      image: imageWithoutId,
+      address: addressWithoutId,
+    };
     const config = {
-      method: 'put',
+      method: "put",
       url: `${BaseUrlusers}${userId}`,
       headers: {
-        'x-auth-token': token, 
-        'Content-Type': 'application/json'
+        "x-auth-token": token,
+        "Content-Type": "application/json",
       },
-      data: JSON.stringify(formDataWithoutId) 
-    };  
-    axios.request(config)
-      .then(response => {
-        console.log('User details updated successfully:', response.data);
-        alert(' Your user details were updated succsessfully!');
+      data: JSON.stringify(formDataWithoutId),
+    };
+    axios
+      .request(config)
+      .then((response) => {
+        alert(" Your user details were updated succsessfully!");
         onClose();
-       
       })
-      .catch(error => {
-        console.error('Error updating user details:', error);
-        alert('Failed to update user details. Please try again.');
+      .catch((error) => {
+        console.error("Error updating user details:", error);
+        alert("Failed to update user details. Please try again.");
       });
   };
   return (
@@ -121,9 +126,8 @@ const formDataWithoutId = {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-     
-           <Form.Group>
-           <Form.Label>Email</Form.Label>
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Email Address Only"
@@ -194,7 +198,6 @@ const formDataWithoutId = {
                 onChange={handleaddressChange}
                 required
               />
-
               <Form.Label>ZIP Code</Form.Label>
               <Form.Control
                 type="text"
@@ -203,7 +206,8 @@ const formDataWithoutId = {
                 value={formData.address.zip}
                 onChange={handleaddressChange}
                 required
-              /></Form.Group>
+              />
+            </Form.Group>
             <Button className="m-3" variant="secondary" onClick={handleClose}>
               Cancel
             </Button>

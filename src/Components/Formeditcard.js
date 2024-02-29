@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import React from "react";
+import { Button, Modal } from "react-bootstrap";
 
 const FormEditCards = ({
   theme,
@@ -24,7 +24,6 @@ const FormEditCards = ({
             required
           />
         </div>
-
         <div className="form-group">
           <label>Subtitle:</label>
           <input
@@ -36,7 +35,6 @@ const FormEditCards = ({
             required
           />
         </div>
-
         <div className="form-group">
           <label>Phone:</label>
           <input
@@ -48,7 +46,6 @@ const FormEditCards = ({
             required
           />
         </div>
-
         <div className="form-group">
           <label>Website:</label>
           <input
@@ -60,7 +57,6 @@ const FormEditCards = ({
             required
           />
         </div>
-
         <div className="form-group">
           <label>Adress:</label>
           <input
@@ -72,7 +68,6 @@ const FormEditCards = ({
             required
           />
         </div>
-
         <div className="form-group">
           <label>Description:</label>
           <textarea
@@ -81,20 +76,16 @@ const FormEditCards = ({
             value={formData.description}
             onChange={handleInputChange}
             placeholder="Description"
-            required
-          ></textarea>
+            required></textarea>
         </div>
-
         <Button
           className="btn btn-success m-3"
           type="submit"
-          disabled={disableSubmit}
-        >
-          {editMode ? 'Update' : 'Add'}
+          disabled={disableSubmit}>
+          {editMode ? "Update" : "Add"}
         </Button>
       </form>
     </Modal.Body>
   );
 };
-
 export default FormEditCards;

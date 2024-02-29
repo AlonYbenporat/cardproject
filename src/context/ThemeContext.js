@@ -15,9 +15,7 @@ export function ThemeProvider({ children }) {
         theme,
         reversedTheme: theme === "dark" ? "light" : "dark",
         toggleTheme,
-     
-      }}
-    >
+      }}>
       {children}
     </ThemeContext.Provider>
   );

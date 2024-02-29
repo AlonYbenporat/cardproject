@@ -12,9 +12,7 @@ function FetchMyItems() {
   const [searchQuery, setSearchQuery] = useState("");
   const storedToken = localStorage.getItem("token");
   const [totalLikes, setTotalLikes] = useState(0);
-
   const userId = localStorage.getItem("userId");
-
   const fetchItems = async () => {
     try {
       const response = await axios.get(CardsStaticUrl, {
@@ -30,7 +28,6 @@ function FetchMyItems() {
         0
       );
       setTotalLikes(totalLikesCount);
-      console.log("PrimeItems - Fetched items:", itemsWithLikes);
     } catch (error) {
       console.error("Error fetching items:", error);
     }
@@ -42,13 +39,10 @@ function FetchMyItems() {
         console.error(`Item with ID ${itemId} not found.`);
         return;
       }
-
       const updatedLikes = itemToUpdate.likes.includes(userId)
         ? itemToUpdate.likes.filter((id) => id !== userId)
         : [...itemToUpdate.likes, userId];
-
       localStorage.setItem("likedItems", JSON.stringify(updatedLikes));
-
       const updatedItems = items.map((item) => {
         if (item._id === itemId) {
           return {
@@ -59,9 +53,7 @@ function FetchMyItems() {
         }
         return item;
       });
-
       setItems(updatedItems);
-
       const response = await axios.patch(
         `${CardsStaticUrl}/${itemId}`,
         { likes: updatedLikes },
@@ -75,16 +67,11 @@ function FetchMyItems() {
           return item;
         })
       );
-      console.log("Like updated successfully:", response.data);
-    } catch (error) {
-      console.log("Error updating like:", error);
-    }
+    } catch (error) {}
   };
-
   useEffect(() => {
     fetchItems();
   }, []);
-
   const handleCardClick = (item) => {
     setSelectedItem(item);
   };
@@ -92,7 +79,6 @@ function FetchMyItems() {
   useEffect(() => {
     fetchItems();
   }, []);
-
   if (selectedItem) {
     return <CardItem />;
   }
@@ -143,7 +129,6 @@ function FetchMyItems() {
                   {item.likes.length}
                 </span>
               </button>
-
               <h4 className={`text-center text-${reversedTheme}`}>
                 {item.title}
               </h4>
@@ -182,5 +167,4 @@ function FetchMyItems() {
     </div>
   );
 }
-
 export default FetchMyItems;

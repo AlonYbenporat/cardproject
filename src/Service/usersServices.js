@@ -1,7 +1,7 @@
-import axios from 'axios';
-import {BaseUrlusers, UsersApiBaseURL, api} from './ConstantsApi'
+import axios from "axios";
+import { BaseUrlusers, api } from "./ConstantsApi";
 
-const token = localStorage.getItem("token")
+const token = localStorage.getItem("token");
 export const loginUser = (userEmail, userPassword) => {
   return api
     .post("users/login", {
@@ -10,15 +10,14 @@ export const loginUser = (userEmail, userPassword) => {
     })
     .then((response) => {
       localStorage.setItem("token", response.data);
-      const tokenPayload = JSON.parse(atob(response.data.split('.')[1]));
-      const { _id, isBusiness, isAdmin, } = tokenPayload;
-  
-      return {        
+      const tokenPayload = JSON.parse(atob(response.data.split(".")[1]));
+      const { _id, isBusiness, isAdmin } = tokenPayload;
+
+      return {
         success: true,
         message: "User logged in successfully",
         token: response.data,
-        user: { _id, isBusiness, isAdmin,},
-        
+        user: { _id, isBusiness, isAdmin },
       };
     })
     .catch((error) => {
@@ -53,13 +52,12 @@ export const fetchUserData = async (userId, token) => {
   try {
     const response = await axios.get(`${BaseUrlusers}${userId}`, {
       headers: {
-        'x-auth-token': token 
-      }
+        "x-auth-token": token,
+      },
     });
-    console.log('User details response:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    console.error("Error fetching user data:", error);
     return null;
   }
 };

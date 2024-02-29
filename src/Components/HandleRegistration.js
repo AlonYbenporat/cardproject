@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
-import axios from 'axios';
-import { UsersApiBaseURL} from '../Service/ConstantsApi';
-import { resetFormData } from '../Service/formUtils';
+import React, { useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
+import axios from "axios";
+import { UsersApiBaseURL } from "../Service/ConstantsApi";
+import { resetFormData } from "../Service/formUtils";
 
 function HandleRegistration() {
   const [show, setShow] = useState(false);
@@ -39,7 +39,7 @@ function HandleRegistration() {
       [e.target.name]: e.target.value,
     }));
   };
-  
+
   const handleNameChange = (e) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -52,17 +52,16 @@ function HandleRegistration() {
   const handleaddressChange = (e) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-    address: {
+      address: {
         ...prevFormData.address,
         [e.target.name]: e.target.value,
       },
     }));
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const missingFields = [];  
+    const missingFields = [];
     if (!formData.name.first) missingFields.push("First Name");
     if (!formData.phone) missingFields.push("Phone");
     if (!formData.email) missingFields.push("Email");
@@ -72,9 +71,12 @@ function HandleRegistration() {
     if (!formData.address.street) missingFields.push("Street");
     if (!formData.address.houseNumber) missingFields.push("House Number");
     if (!formData.address.zip) missingFields.push("ZIP Code");
-  
     if (missingFields.length > 0) {
-      alert(`Please fill out the following required fields: ${missingFields.join(", ")}`);
+      alert(
+        `Please fill out the following required fields: ${missingFields.join(
+          ", "
+        )}`
+      );
       return;
     }
 
@@ -98,7 +100,9 @@ function HandleRegistration() {
         } else {
           console.error("Error setting up the request:", error.message);
         }
-        alert("Failed to register. Make sure you fill up all fields and try again.");
+        alert(
+          "Failed to register. Make sure you fill up all fields and try again."
+        );
       });
   };
 
@@ -107,7 +111,11 @@ function HandleRegistration() {
       <Button variant="primary" onClick={handleShow}>
         <i className="bi bi-person-plus m-3"> Register</i>
       </Button>
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>Please Enter Your Details To Sign Up</Modal.Title>
         </Modal.Header>
@@ -132,7 +140,6 @@ function HandleRegistration() {
                 onChange={handleNameChange}
                 required
               />
-
               <Form.Label>Phone</Form.Label>
               <Form.Control
                 type="text"
@@ -142,7 +149,6 @@ function HandleRegistration() {
                 onChange={handleInputChange}
                 required
               />
-              
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
@@ -211,12 +217,17 @@ function HandleRegistration() {
                 label="I am Business User"
                 name="isBusiness"
                 checked={formData.isBusiness}
-                onChange={(e) => setFormData({ ...formData, isBusiness: e.target.checked })}
+                onChange={(e) =>
+                  setFormData({ ...formData, isBusiness: e.target.checked })
+                }
               />
             </Form.Group>
-            <Button className="m-3 " variant="secondary" onClick={() => {
-            resetFormData(setFormData);
-            handleClose();
+            <Button
+              className="m-3 "
+              variant="secondary"
+              onClick={() => {
+                resetFormData(setFormData);
+                handleClose();
               }}>
               Go Back
             </Button>
@@ -228,7 +239,9 @@ function HandleRegistration() {
         <Modal.Footer></Modal.Footer>
       </Modal>
       {alertShow && (
-        <div className="alert alert-success position-fixed top-0 end-0 m-3" role="alert">
+        <div
+          className="alert alert-success position-fixed top-0 end-0 m-3"
+          role="alert">
           You are registered successfully! Please login.
         </div>
       )}

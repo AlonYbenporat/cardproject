@@ -1,58 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { Form } from 'react-bootstrap';
-import { fetchUserData, loginUser } from '../Service/usersServices';
-import axios from 'axios';
-import { BaseUrlusers } from '../Service/ConstantsApi';
+import React, { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Form } from "react-bootstrap";
+import { fetchUserData, loginUser } from "../Service/usersServices";
+import axios from "axios";
+import { BaseUrlusers } from "../Service/ConstantsApi";
 
 function HandleLogin({ show, onClose, onLogin }) {
   const [alertShow, setAlertShow] = useState(false);
-  const [alertTimeout, setAlertTimeout] = useState(null);;
+  const [alertTimeout, setAlertTimeout] = useState(null);
   const [isBusiness, setIsBusiness] = useState(false);
   const [loginAttempts, setLoginAttempts] = useState(0);
   const [userProp, setUserProp] = useState();
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-
   const handleShow = () => {
     setFormData({
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     });
     setAlertShow(false);
     onLogin();
   };
-
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
-
   const handleLoginSuccess = (response) => {
-  const token = localStorage.getItem('token');
-  axios.get(`${BaseUrlusers}${response.user._id}`, {
-    headers: {
-      'x-auth-token': token
-    }
-  })
-  .then(userResponse => { 
-    localStorage.setItem('userId', response.user._id);
-    localStorage.setItem('user_Id', response.user_id);
-    const userProp = userResponse.data;
-    localStorage.setItem(`userProp51`,JSON.stringify(userProp))
-    window.location.reload()
-  })
-  .catch(error => {
-    console.error('Error fetching user details:', error);
-  });
-    localStorage.setItem('isLoggedin', true);
-    localStorage.setItem('isBusiness', response.user.isBusiness);
-    localStorage.setItem('isAdmin', response.user.isAdmin);
+    const token = localStorage.getItem("token");
+    axios
+      .get(`${BaseUrlusers}${response.user._id}`, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
+      .then((userResponse) => {
+        localStorage.setItem("userId", response.user._id);
+        localStorage.setItem("user_Id", response.user_id);
+        const userProp = userResponse.data;
+        localStorage.setItem(`userProp51`, JSON.stringify(userProp));
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error("Error fetching user details:", error);
+      });
+    localStorage.setItem("isLoggedin", true);
+    localStorage.setItem("isBusiness", response.user.isBusiness);
+    localStorage.setItem("isAdmin", response.user.isAdmin);
     setIsBusiness(response.user.isBusiness);
     handleClose();
     setAlertShow(true);
@@ -62,29 +60,26 @@ function HandleLogin({ show, onClose, onLogin }) {
     setAlertTimeout(timeoutId);
     setLoginAttempts(0);
     onLogin(response.name);
-   
-    
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Submitting login request with data:', formData);
+    console.log("Submitting login request with data:", formData);
     try {
       if (loginAttempts >= 3) {
         setFormData({
-          email: '',
-          password: '',
+          email: "",
+          password: "",
         });
-        alert('Too many login attempts. Please try again later. you are cuurntely lock ');
+        alert(
+          "Too many login attempts. Please try again later. you are cuurntely lock "
+        );
         handleClose();
         return;
       }
       const response = await loginUser(formData.email, formData.password);
-
       if (response.success) {
         handleShow();
         setAlertShow(true);
-        console.log('Response from loginUser:', response);
         handleLoginSuccess(response);
         setLoginAttempts(0);
         const timeoutId = setTimeout(() => {
@@ -93,17 +88,21 @@ function HandleLogin({ show, onClose, onLogin }) {
         setAlertTimeout(timeoutId);
       } else {
         setLoginAttempts((prevAttempts) => prevAttempts + 1);
-        alert('Invalid username or password. Please try again.');
+        alert("Invalid username or password. Please try again.");
       }
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message || 'Invalid username or password. Please try again.');
+        alert(
+          error.response.data.message ||
+            "Invalid username or password. Please try again."
+        );
       } else {
-        console.error('An error occurred:', error);
+        console.error("An error occurred:", error);
       }
-      localStorage.setItem('isLoggedin', false);
-      localStorage.setItem('isBusiness', false);
-    }};
+      localStorage.setItem("isLoggedin", false);
+      localStorage.setItem("isBusiness", false);
+    }
+  };
 
   useEffect(() => {
     return () => {
@@ -113,21 +112,21 @@ function HandleLogin({ show, onClose, onLogin }) {
     };
   }, [alertTimeout]);
 
-useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('user_id');
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("user_id");
     const fetchData = async () => {
       try {
         const userData = await fetchUserData(userId, token);
         setUserProp(userData);
-        
-        localStorage.setItem('UserDataProp', JSON.stringify(userData));
+
+        localStorage.setItem("UserDataProp", JSON.stringify(userData));
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     };
     fetchData();
-  }, []); 
+  }, []);
 
   const handleClose = () => {
     onClose();
@@ -136,8 +135,11 @@ useEffect(() => {
 
   return (
     <>
-    
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}>
         <Modal.Header closeButton>
           <Modal.Title>Login to your account</Modal.Title>
         </Modal.Header>
@@ -173,7 +175,9 @@ useEffect(() => {
         </Modal.Body>
       </Modal>
       {alertShow && (
-        <div className="alert alert-success position-fixed top-0 end-0 m-3" role="alert">
+        <div
+          className="alert alert-success position-fixed top-0 end-0 m-3"
+          role="alert">
           You are logged in successfully!
         </div>
       )}

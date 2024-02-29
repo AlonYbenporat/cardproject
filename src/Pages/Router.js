@@ -52,16 +52,13 @@ export default Router;
 
 {
   /*Misiion
-        2. דף txt להסבר על המערכת
-         3. דף אודות על התממשקות האתר 
-         4. ניקוי קטעי קוד מיותרים
-         5. סדר בקוד  
-         6. מחיקת ConoleLog
-         7. Upload to git
-         8. prev item in card item next\back
-         10. Add Edit & delte -, on add items  for all ittems  
-         11. Error fetching user data: usersservice 62 
-         12. arrange div of card on fetch items, my cards.favortie 1
-         13my cards- view table\items 
+ 		    1. ADDITEMS  - Reduce code line by helper function   
+		    3. my cards- view table\item
+        4. prev item in card item next\back
+        5. Error fetching user data: usersservice 62 
+        6. arrange div of card on fetch items, my cards.favortie 1
+		    7. דף txt להסבר על המערכת
+        8. דף אודות על התממשקות האתר 
+		    9.Upload to git 
                */
 }

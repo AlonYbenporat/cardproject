@@ -1,42 +1,41 @@
-import React, { useContext, useState } from 'react';
-import axios from 'axios';
-import { ThemeContext } from '../context/ThemeContext';
-import NavBar from './NavBar';
-import '../Style/cards.css';
-import { Button,Row, Col, Alert,Card} from 'react-bootstrap';
-import  initialFormData  from '../HelperFuncrions/FormData';
-import { useImageList } from './ImageList';
-import { CardsStaticUrl } from '../Service/ConstantsApi';
-import Footer from './Footer';
+import React, { useContext, useState } from "react";
+import axios from "axios";
+import { ThemeContext } from "../context/ThemeContext";
+import NavBar from "./NavBar";
+import "../Style/cards.css";
+import { Button, Row, Col, Alert, Card } from "react-bootstrap";
+import initialFormData from "../HelperFuncrions/FormData";
+import { useImageList } from "./ImageList";
+import { CardsStaticUrl } from "../Service/ConstantsApi";
+import Footer from "./Footer";
 
 function HandleAddItems() {
-
   const { theme, reversedTheme } = useContext(ThemeContext);
-  const token = localStorage.getItem("token")
-  const [successMessage, setSuccessMessage] = useState('');
-  const [failureMessage, setFailureMessage] = useState('');
+  const token = localStorage.getItem("token");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [failureMessage, setFailureMessage] = useState("");
   const [addedItems, setAddedItems] = useState([]);
   const [editItemId, setEditItemId] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [imageList] = useImageList();
   const [formData, setFormData] = useState({
-    title: '',
-    subtitle: '',
-    description: '',
-    phone: '',
-    email: '',
-    web: '',
+    title: "",
+    subtitle: "",
+    description: "",
+    phone: "",
+    email: "",
+    web: "",
     image: {
-      url: '',
-      alt: '',
+      url: "",
+      alt: "",
     },
     address: {
-      state: '',
-      country: '',
-      city: '',
-      street: '',
-      houseNumber: '',
-      zip: '',
+      state: "",
+      country: "",
+      city: "",
+      street: "",
+      houseNumber: "",
+      zip: "",
     },
   });
   const resetForm = () => {
@@ -68,51 +67,55 @@ function HandleAddItems() {
       },
     }));
   };
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards', formData, {
-        headers: {
-          'x-auth-token': `${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await axios.post(
+        "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards",
+        formData,
+        {
+          headers: {
+            "x-auth-token": `${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setAddedItems([...addedItems, response.data]);
-      setSuccessMessage('Card Wasd added successfully!');
-      setFailureMessage('');
-      setTimeout(() => setSuccessMessage(''), 3000);
+      setSuccessMessage("Card Wasd added successfully!");
+      setFailureMessage("");
+      setTimeout(() => setSuccessMessage(""), 3000);
       console.log(JSON.stringify(response.data));
       setFormData({
-        title: '',
-        subtitle: '',
-        description: '',
-        phone: '',
-        email: '',
-        web: '',
+        title: "",
+        subtitle: "",
+        description: "",
+        phone: "",
+        email: "",
+        web: "",
         image: {
-          url: '',
-          alt: '',
+          url: "",
+          alt: "",
         },
         address: {
-          state: '',
-          country: '',
-          city: '',
-          street: '',
-          houseNumber: '',
-          zip: '',
+          state: "",
+          country: "",
+          city: "",
+          street: "",
+          houseNumber: "",
+          zip: "",
         },
       });
     } catch (error) {
       console.error(error);
-      setFailureMessage('Failed to add item.');
-      setSuccessMessage('');
-      setTimeout(() => setFailureMessage(''), 3000);
+      setFailureMessage("Failed to add item.");
+      setSuccessMessage("");
+      setTimeout(() => setFailureMessage(""), 3000);
     }
-  }; 
+  };
   const handleEdit = (editedItem) => {
     console.log("Editing item:", editedItem);
     setEditMode(true);
-    setEditItemId(editedItem._id); 
+    setEditItemId(editedItem._id);
     console.log("Edit item ID:", editedItem._id);
     setFormData({
       title: editedItem.title,
@@ -142,24 +145,26 @@ const handleSubmit = async (e) => {
         formData,
         {
           headers: {
-            'x-auth-token': localStorage.getItem('token'),
-            'Content-Type': 'application/json',
+            "x-auth-token": localStorage.getItem("token"),
+            "Content-Type": "application/json",
           },
         }
       );
-      const updatedItems = addedItems.map(item => (item._id === editItemId ? response.data : item));
+      const updatedItems = addedItems.map((item) =>
+        item._id === editItemId ? response.data : item
+      );
       setAddedItems(updatedItems);
-      console.log('Card updated successfully:', response.data);
-      setSuccessMessage('Card updated successfully!');
+      console.log("Card updated successfully:", response.data);
+      setSuccessMessage("Card updated successfully!");
       resetForm();
-      setEditMode(false)
-      setFailureMessage('');
-      setTimeout(() => setSuccessMessage(''), 3000);
+      setEditMode(false);
+      setFailureMessage("");
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
-      console.error('Failed to update card:', error);
-      setFailureMessage('Failed to update card.');
-      setSuccessMessage('');
-      setTimeout(() => setFailureMessage(''), 3000);
+      console.error("Failed to update card:", error);
+      setFailureMessage("Failed to update card.");
+      setSuccessMessage("");
+      setTimeout(() => setFailureMessage(""), 3000);
       resetForm();
     }
   };
@@ -167,28 +172,30 @@ const handleSubmit = async (e) => {
     try {
       await axios.delete(`${CardsStaticUrl}${itemId}`, {
         headers: {
-          'x-auth-token': localStorage.getItem('token'),
+          "x-auth-token": localStorage.getItem("token"),
         },
       });
-      const updatedItems = addedItems.filter(item => item._id !== itemId);
+      const updatedItems = addedItems.filter((item) => item._id !== itemId);
       setAddedItems(updatedItems);
-      setSuccessMessage('Card deleted successfully!');
-      setTimeout(() => setSuccessMessage(''), 3000);
+      setSuccessMessage("Card deleted successfully!");
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
-      console.error('Failed to delete card:', error);
-      setFailureMessage('Failed to delete card.');
-      setTimeout(() => setFailureMessage(''), 3000);
+      console.error("Failed to delete card:", error);
+      setFailureMessage("Failed to delete card.");
+      setTimeout(() => setFailureMessage(""), 3000);
     }
   };
   return (
     <div className={`bg-${theme} text-${reversedTheme}`}>
-      {console.log('Component re-rendered with updated data:', addedItems)}
+      {console.log("Component re-rendered with updated data:", addedItems)}
       <NavBar />
       <h1>Add Card to site</h1>
       <div className="container">
         <div className="row">
           <div className="col-md-3">
-            {successMessage && <Alert variant="success">{successMessage}</Alert>}
+            {successMessage && (
+              <Alert variant="success">{successMessage}</Alert>
+            )}
             {failureMessage && <Alert variant="danger">{failureMessage}</Alert>}
             <form onSubmit={handleSubmit}>
               <div className={`row bg-${theme}`}>
@@ -256,12 +263,15 @@ const handleSubmit = async (e) => {
                   <select
                     className="form-control"
                     name="image"
-                    onChange={(e) => handleImageSelect(imageList[e.target.value])}
-                    required
-                  >
+                    onChange={(e) =>
+                      handleImageSelect(imageList[e.target.value])
+                    }
+                    required>
                     <option value="">Select Image</option>
                     {imageList.map((image, index) => (
-                      <option key={index} value={index}>{image.name}</option>
+                      <option key={index} value={index}>
+                        {image.name}
+                      </option>
                     ))}
                   </select>
                   <label>State:</label>
@@ -342,15 +352,13 @@ const handleSubmit = async (e) => {
                       !formData.address.houseNumber ||
                       !formData.address.zip
                     }
-                    onClick={editMode ? handleUpdate : handleSubmit}
-                  >
+                    onClick={editMode ? handleUpdate : handleSubmit}>
                     {editMode ? "Update" : "Add"}
                   </Button>
                 </div>
               </div>
             </form>
           </div>
-  
           <div className="col-md-6">
             {addedItems.map((item) => (
               <div key={item._id} className="container mt-4">
@@ -369,15 +377,27 @@ const handleSubmit = async (e) => {
                           Delete
                         </Button>
                       </div>
-                      <Card.Img variant="top" src={item.image.url} alt={item.image.alt} />
+                      <Card.Img
+                        variant="top"
+                        src={item.image.url}
+                        alt={item.image.alt}
+                      />
                       <Card.Body>
                         <Card.Title>Title: {item.title}</Card.Title>
-                        <Card.Subtitle>SubTitle : {item.subtitle}</Card.Subtitle>
+                        <Card.Subtitle>
+                          SubTitle : {item.subtitle}
+                        </Card.Subtitle>
                         <Card.Text>phone: {item.phone}</Card.Text>
                         <Card.Text>{item.email}</Card.Text>
                         <Card.Text>{item.web}</Card.Text>
-                        <Card.Text>Address: {item.address.state},{item.address.country},{item.address.city}</Card.Text>
-                        <Card.Text>{item.address.street},{item.address.houseNumber},{item.address.zip}</Card.Text>
+                        <Card.Text>
+                          Address: {item.address.state},{item.address.country},
+                          {item.address.city}
+                        </Card.Text>
+                        <Card.Text>
+                          {item.address.street},{item.address.houseNumber},
+                          {item.address.zip}
+                        </Card.Text>
                       </Card.Body>
                     </Card>
                   </div>
@@ -390,6 +410,5 @@ const handleSubmit = async (e) => {
       <Footer />
     </div>
   );
-  
-            }
+}
 export default HandleAddItems;

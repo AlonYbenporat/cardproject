@@ -9,12 +9,10 @@ function Protected({ children, isAdmin, isBusiness }) {
   }
 
   if (isAdmin && isBusiness) {
-    
     return children;
   }
 
   if (isAdmin && !isBusiness) {
-   
     return children;
   }
   if (!isAdmin && isBusiness) {
