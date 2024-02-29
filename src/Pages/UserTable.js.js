@@ -81,10 +81,9 @@ function UserTable() {
 
   const handleDelete = async (userId) => {
     try {
-      const token = localStorage.getItem("token");
       const response = await axios.get(`${BaseUrlusers}${userId}`, {
         headers: {
-          "x-auth-token": token,
+          "x-auth-token": storedToken,
         },
       });
       const { name } = response.data;
@@ -96,12 +95,12 @@ function UserTable() {
       }
       await axios.delete(`${BaseUrlusers}${userId}`, {
         headers: {
-          "x-auth-token": token,
+          "x-auth-token": storedToken,
         },
       });
       const updatedItems = items.filter((item) => item._id !== userId);
       setItems(updatedItems);
-      fetchUserData(token); // Pass the token to the fetchUserData function
+      fetchUserData(storedToken);
     } catch (error) {
       console.error("Error deleting user:", error);
       if (
@@ -121,7 +120,7 @@ function UserTable() {
     try {
       const response = await axios.get(`${BaseUrlusers}`, {
         headers: {
-          "x-auth-token": token,
+          "x-auth-token": storedToken,
         },
       });
       setUsers(response.data);
@@ -263,13 +262,13 @@ function UserTable() {
                 <input
                   type="checkbox"
                   id={`cbToggleDisplay-${user._id}`}
-                  checked={!user.isBusiness}
+                  checked={user.isBusiness}
                   className="form-check-input"
                   onClick={() => handleEdit(user._id)}
                 />
               </td>
               <td>
-                <button onClick={() => handleDelete(user._id)}>Delete</button>
+                <i className="bi bi-trash" onClick={() => handleDelete(user._id)}></i>
               </td>
             </tr>
           ))}

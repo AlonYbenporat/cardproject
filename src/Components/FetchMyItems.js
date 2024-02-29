@@ -5,6 +5,7 @@ import { ListContext } from "../context/ListContext";
 import CardItem from "./CardItem";
 import { CardsStaticUrl } from "../Service/ConstantsApi";
 
+
 function FetchMyItems() {
   const [items, setItems] = useState([]);
   const { theme, reversedTheme } = useContext(ThemeContext);
@@ -80,7 +81,7 @@ function FetchMyItems() {
     fetchItems();
   }, []);
   if (selectedItem) {
-    return <CardItem />;
+    return <CardItem items={items} />;
   }
   const filteredItems = items.filter((item) => {
     for (const key in item) {

@@ -4,7 +4,8 @@ import NavBar from "../Components/NavBar";
 import { ThemeContext } from "../context/ThemeContext";
 import { ListContext } from "../context/ListContext";
 import { CardsStaticUrl } from "../Service/ConstantsApi";
-import CardItem from "../Components/CardItem";
+import CardItemLevel from "../Components/CardItemlevel";
+
 function Likes() {
   const { theme, reversedTheme } = useContext(ThemeContext);
   const [items, setItems] = useState([]);
@@ -68,7 +69,8 @@ function Likes() {
     return (
       <>
         <NavBar />
-        <CardItem />
+        <CardItemLevel />
+
       </>
     );
   }

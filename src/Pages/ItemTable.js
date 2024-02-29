@@ -266,7 +266,7 @@ function ItemTable() {
               <th scope="row">{index + 1}</th>
               <td>
                 <i
-                  class="bi bi-trash"
+                  className="bi bi-trash"
                   onClick={() => handleDelete(item._id)}></i>
               </td>
               <td
@@ -282,7 +282,7 @@ function ItemTable() {
               </td>
               <td
                 title={item.web}
-                onClick={() => window.open(item.web, "_blank")}>
+                onClick={() => window.open("https://" + item.web)}>
                 {item.web.length > 10
                   ? `${item.web.slice(0, 10)}...`
                   : item.web}

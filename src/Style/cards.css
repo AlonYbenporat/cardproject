@@ -120,3 +120,12 @@ h3 {
   margin: 5px;
   text-align: left;
 }
+.lgfont{
+  font-size: 50px;
+  margin: 5px;
+  font-weight: bold;
+  color: #b83217;
+  border: rgb(167, 171, 38);
+  -webkit-text-stroke: 0px rgba(22, 18, 32, 0.942);
+
+}
