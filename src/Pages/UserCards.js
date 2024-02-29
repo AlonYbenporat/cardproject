@@ -90,7 +90,7 @@ function UserCards() {
   });
 
   return (
-    <div className={`bg-${theme}`}>
+    <div className={`bg-${theme} `}>
       <NavBar></NavBar>
       <h1>My Cards</h1>
       <div className="container">
@@ -130,7 +130,7 @@ function UserCards() {
                 <h4 className={`text-center text-${reversedTheme}`}>
                   {item.title}
                 </h4>
-                <h5 className="text-center">{item.subtitle}</h5>
+                <h5 className={`text-center  text-${reversedTheme} `}>{item.subtitle}</h5>
                 <a
                   className="text-center"
                   href={item.web}

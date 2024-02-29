@@ -58,13 +58,11 @@ export default Router;
         5. arrange div of card on fetch items, my cards.favortie 1
 		    6. דף txt להסבר על המערכת
         7. דף אודות על התממשקות האתר 
-        8. ביטול אפשרות ללחוצ על לייק שמתמש לא מחובר 
-        9. add ites fetch items ufter update and edd and delete
-        9.b add item update is not update    
-        10. sutitle dark\light 
+        8. ביטול אפשרות ללחוצ על לייק שמתמש לא מחובר    
         11. register alert on psswword....  
-        12.fetch item weburl https:\\localhost 
-        13. Map google items . 
+        10. Return Handle next back my cards
+       
+        
 
   */
 }

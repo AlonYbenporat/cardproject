@@ -1,23 +1,23 @@
 import React, { useContext, useState } from "react";
 import { ListContext } from "../context/ListContext";
 import { ThemeContext } from "../context/ThemeContext";
+import Footer from "./Footer";
 
 
 function CardItemLevel() {
   const { theme, reversedTheme } = useContext(ThemeContext);
   const { selectedItem, setSelectedItem } = useContext(ListContext);
-  const [currentIndex, setCurrentIndex] = useState(0);
+
   
   
   const handleGoBack = () => {
     setSelectedItem(null);
   };
   
-
   const { title, subtitle, description, image, phone, email, web, address } =
     selectedItem || {};
    return (
-    <>
+   <div className={`bg-${theme}`}>
       <div
         className={`card  bg-${theme} mx-auto m-3 `}
         style={{ width: "600px", height: "800px" }}>
@@ -40,7 +40,6 @@ function CardItemLevel() {
             }`}></i>
           <a href={`mailto:${email}`}>{email}</a>
         </div>
-
         <div>
           <i
             className={`bi bi-globe m-3 p-2 ${
@@ -57,7 +56,7 @@ function CardItemLevel() {
             }`}></i>
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-              address
+              address.street + address.houseNumber
             )}`}
             target="_blank"
             rel="noopener noreferrer">
@@ -68,7 +67,8 @@ function CardItemLevel() {
         <p className={`text-${reversedTheme} text-center`}>{description}</p>
         <img className="card-img-top" src={image.url} alt={image.alt} />
       </div>
-    </>
+      <Footer></Footer>
+    </div>
   );
 }
 export default CardItemLevel;

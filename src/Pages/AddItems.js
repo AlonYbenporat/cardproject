@@ -18,6 +18,31 @@ function AddItems() {
   const [items, setItems] = useState([]);
   const [imageList] = useImageList();
   const userId = localStorage.getItem("userId");
+
+  const fetchItems = async () => {
+    try {
+      const response = await axios.get(CardsStaticUrl, {
+        headers: {
+          "x-auth-token": storedToken,
+        },
+      });
+      const userItems = response.data
+        .filter((item) => item.user_id === userId)
+        .map((item) => ({
+          ...item,
+          isLikedByUser: item.likes.includes(userId),
+        }));
+      setItems(userItems);
+    } catch (error) {
+      console.error("Error fetching items:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+
   const [formData, setFormData] = useState({
     title: "",
     subtitle: "",
@@ -76,7 +101,7 @@ function AddItems() {
           "Content-Type": "application/json",
         },
       });
-
+    fetchItems();
       setSuccessMessage("Card Wasd added successfully!");
       setFailureMessage("");
       setTimeout(() => setSuccessMessage(""), 3000);
@@ -227,6 +252,7 @@ function AddItems() {
           },
         }
       );
+      fetchItems();
       setSuccessMessage("Card updated successfully!");
       resetForm();
       setEditMode(false);

@@ -38,7 +38,7 @@ function CardItem({ items }) {
       <div
         className={`card  bg-${theme} mx-auto  `}
         style={{ width: "600px", height: "800px" }}>
-         <div className="text-center m-3">
+         <div className="text-center m-3 ">
           <i className="lgfont bi bi-arrow-left-circle-fill m-4"onClick={handleBackItem}></i>
           <i  className="lgfont bi bi-arrow-counterclockwise m-4" onClick={handleGoBack}></i>
           <i className="lgfont bi bi-arrow-right-circle-fill m-4"onClick={handleNextItem}></i>
@@ -79,7 +79,7 @@ function CardItem({ items }) {
             }`}></i>
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-              address
+              address.street +address.houseNumber
             )}`}
             target="_blank"
             rel="noopener noreferrer">

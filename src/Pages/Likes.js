@@ -113,7 +113,7 @@ function Likes() {
             {filteredItems.map((item, index) => (
               <div key={item.id} className="col-md-4 mb-5">
                 <div
-                  className={`card bg-${theme} text-center `}
+                  className={`card bg-${theme} text-center text-${reversedTheme} `}
                   style={{ width: "300px", height: "500px" }}>
                   <i
                     className="bi bi-trash3"

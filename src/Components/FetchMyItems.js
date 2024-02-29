@@ -112,8 +112,9 @@ function FetchMyItems() {
         {filteredItems.map((item, index) => (
           <div key={item.id} className="col-md-4 mb-5">
             <div
-              className={`card bg-${theme} `}
+              className={`card bg-${theme} text-${reversedTheme} `}
               style={{ width: "300px", height: "500px" }}>
+                
               <button
                 style={{ borderColor: "#FFFFFF" }}
                 onClick={() => handleLike(item._id)}>
@@ -136,8 +137,8 @@ function FetchMyItems() {
               <h5 className="text-center">{item.subtitle}</h5>
               <a
                 className="text-center"
-                href={item.web}
-                target="_blank"
+                href={item.web.startsWith("http") ? item.web : `http://${item.web}`}
+                target='blank'
                 rel="noopener noreferrer ">
                 {item.web}
               </a>
