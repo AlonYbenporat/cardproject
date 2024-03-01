@@ -4,6 +4,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import "../Style/cards.css";
 
 
+
 function CardItem({ items }) {
   const { theme, reversedTheme } = useContext(ThemeContext);
   const { selectedItem, setSelectedItem } = useContext(ListContext);
@@ -33,8 +34,6 @@ function CardItem({ items }) {
 
   return (
     <>
-      
-
       <div
         className={`card  bg-${theme} mx-auto  `}
         style={{ width: "600px", height: "800px" }}>
@@ -90,6 +89,7 @@ function CardItem({ items }) {
         <p className={`text-${reversedTheme} text-center`}>{description}</p>
         <img className="card-img-top" src={image.url} alt={image.alt} />
       </div>
+      
     </>
   );
 }

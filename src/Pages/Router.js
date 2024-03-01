@@ -59,8 +59,10 @@ export default Router;
 		    6. דף txt להסבר על המערכת
         7. דף אודות על התממשקות האתר 
         8. ביטול אפשרות ללחוצ על לייק שמתמש לא מחובר    
-        11. register alert on psswword....  
-        10. Return Handle next back my cards
+        11. case imin lenth on add items 
+        12. change admin to none admin 
+
+        
        
         
 

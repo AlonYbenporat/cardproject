@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
 import { UsersApiBaseURL } from "../Service/ConstantsApi";
@@ -9,6 +9,14 @@ function HandleRegistration() {
   const [alertShow, setAlertShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [isAdminlogin, setIsAdminlogin] = useState(false);
+
+  useEffect(() => {
+    const isAdminlogin = localStorage.getItem("isAdmin") === "true";
+    if ( isAdminlogin) {
+      setIsAdminlogin(true);
+    }
+  }, []);
   const [formData, setFormData] = useState({
     name: {
       first: "",
@@ -30,7 +38,8 @@ function HandleRegistration() {
       houseNumber: "",
       zip: "",
     },
-    isBusiness: true,
+    isAdmin: false,
+    isBusiness: false,
   });
 
   const handleInputChange = (e) => {
@@ -61,48 +70,50 @@ function HandleRegistration() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const missingFields = [];
-    if (!formData.name.first) missingFields.push("First Name");
-    if (!formData.phone) missingFields.push("Phone");
-    if (!formData.email) missingFields.push("Email");
-    if (!formData.password) missingFields.push("Password");
-    if (!formData.address.country) missingFields.push("Country");
-    if (!formData.address.city) missingFields.push("City");
-    if (!formData.address.street) missingFields.push("Street");
-    if (!formData.address.houseNumber) missingFields.push("House Number");
-    if (!formData.address.zip) missingFields.push("ZIP Code");
-    if (missingFields.length > 0) {
-      alert(
-        `Please fill out the following required fields: ${missingFields.join(
-          ", "
-        )}`
-      );
-      return;
-    }
+    
 
     axios
       .post(`${UsersApiBaseURL}/users`, formData)
       .then((response) => {
+        if (formData.isBusiness){
+          alert("You are registered successfully! Business is a trial for 30 days.")
+          handleClose();
+          resetFormData(setFormData);
+          
+        } else {
         setAlertShow(true);
         setTimeout(() => {
-          setAlertShow(false);
+        setAlertShow(false);
         }, 2000);
         handleClose();
+        resetFormData(setFormData);
+      }
       })
       .catch((error) => {
+        console.error("eroor status of data",error.response.data)
+        console.error("eroor status",error.response.status)
         console.error("Error adding user:", error);
-        if (error.response) {
-          console.error("Server response data:", error.response.data);
-          console.error("Server response status:", error.response.status);
-          console.error("Server response headers:", error.response.headers);
-        } else if (error.request) {
-          console.error("No response received from the server");
+        if (error.response && error.response.status ===400) {
+          const errorMessage = error.response.data;
+          switch (errorMessage) {
+              case "User already registered":
+                alert("User already registered");
+                break;
+                case 'Joi Error: user "phone" mast be a valid phone number':
+                alert(" invalid phone number");
+                break;
+                case 'Joi Error: user "mail" mast be a valid mail':
+                alert("Email is invalid");
+                break;
+                case 'Joi Error: user "password" must be at least nine characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-':
+                alert("Password requirements: at least nine characters long, contain an uppercase letter lowercase letter number,special character");
+                break;
+            default:
+                alert("An error occurred while registering. Please try again.");
+          }
         } else {
-          console.error("Error setting up the request:", error.message);
+            alert("Failed to register. Make sure you fill up all fields and try again.");
         }
-        alert(
-          "Failed to register. Make sure you fill up all fields and try again."
-        );
       });
   };
 
@@ -130,6 +141,7 @@ function HandleRegistration() {
                 value={formData.name.first}
                 onChange={handleNameChange}
                 required
+                minLength={2}
               />
               <Form.Label>Last Name</Form.Label>
               <Form.Control
@@ -139,6 +151,7 @@ function HandleRegistration() {
                 value={formData.name.last}
                 onChange={handleNameChange}
                 required
+                minLength={2}
               />
               <Form.Label>Phone</Form.Label>
               <Form.Control
@@ -167,6 +180,16 @@ function HandleRegistration() {
                 onChange={handleInputChange}
                 required
               />
+               <Form.Label>State</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter your State"
+                name="state"
+                value={formData.address.state}
+                onChange={handleaddressChange}
+                required
+                minLength={2}
+              />
               <Form.Label>Country</Form.Label>
               <Form.Control
                 type="text"
@@ -175,6 +198,7 @@ function HandleRegistration() {
                 value={formData.address.country}
                 onChange={handleaddressChange}
                 required
+                minLength={2}
               />
               <Form.Label>City</Form.Label>
               <Form.Control
@@ -184,6 +208,7 @@ function HandleRegistration() {
                 value={formData.address.city}
                 onChange={handleaddressChange}
                 required
+                minLength={2}
               />
               <Form.Label>Street</Form.Label>
               <Form.Control
@@ -193,6 +218,7 @@ function HandleRegistration() {
                 value={formData.address.street}
                 onChange={handleaddressChange}
                 required
+                minLength={2}
               />
               <Form.Label>House Number</Form.Label>
               <Form.Control
@@ -221,6 +247,16 @@ function HandleRegistration() {
                   setFormData({ ...formData, isBusiness: e.target.checked })
                 }
               />
+              {isAdminlogin &&(
+              <Form.Check
+                type="checkbox"
+                label="User Is an Admin"
+                name="isAdmin"
+                checked={formData.isAdmin}
+                onChange={(e) =>
+                  setFormData({ ...formData, isAdmin: e.target.checked })
+                }
+              />)}
             </Form.Group>
             <Button
               className="m-3 "

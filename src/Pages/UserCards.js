@@ -5,6 +5,8 @@ import { ListContext } from "../context/ListContext";
 import axios from "axios";
 import { CardsStaticUrl } from "../Service/ConstantsApi";
 import CardItem from "../Components/CardItem";
+import Footer from "../Components/Footer";
+import CardItemLevel from "../Components/CardItemlevel";
 
 function UserCards() {
   const { theme, reversedTheme } = useContext(ThemeContext);
@@ -72,7 +74,7 @@ function UserCards() {
     } catch (error) {}
   };
   if (selectedItem) {
-    return <CardItem />;
+    return <CardItemLevel></CardItemLevel>;
   }
 
   const filteredItems = items.filter((item) => {
@@ -109,7 +111,6 @@ function UserCards() {
             <div key={item.id} className="col-md-4 mb-5">
               <div
                 className={`card bg-${theme} `}
-                onClick={() => handleCardClick(item)}
                 style={{ width: "300px", height: "500px" }}>
                 <button
                   style={{ borderColor: "#FFFFFF" }}
@@ -163,6 +164,7 @@ function UserCards() {
           ))}
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 }
