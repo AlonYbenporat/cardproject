@@ -128,59 +128,44 @@ function AddItems() {
     } catch (error) {
       console.error(error);
       if (error.response && error.response.status === 400) {
-        if (
-          error.response.data ===
-          'Joi Error: card "phone" mast be a valid phone number'
-        ) {
-          setFailureMessage("Phone number is invalid");
-        } else if (
-          error.response.data === 'Joi Error: card "mail" mast be a valid mail'
-        ) {
-          setFailureMessage("Email is invalid");
-        } else if (
-          error.response.data ===
-          'Joi Error: "title" length must be at least 2 characters long'
-        ) {
-          setFailureMessage(" Your title length is to short");
-        } else if (
-          error.response.data ===
-          'Joi Error: "subtitle" length must be at least 2 characters long'
-        ) {
-          setFailureMessage(" Your subtitle length is to short");
-        } else if (
-          error.response.data === 'Joi Error: card "web" mast be a valid url'
-        ) {
-          setFailureMessage(" Website addrees inivalid");
-        } else if (
-          error.response.data ===
-          'Joi Error: "address.country" length must be at least 2 characters long'
-        ) {
-          setFailureMessage(" country is to short");
-        } else if (
-          error.response.data ===
-          'Joi Error: "address.city" length must be at least 2 characters long'
-        ) {
-          setFailureMessage(" city is to short");
-        } else if (
-          error.response.data ===
-          'Joi Error: "address.street" length must be at least 2 characters long'
-        ) {
-          setFailureMessage("Street name is to short");
-        } else if (
-          error.response.data ===
-          'Joi Error: "description" length must be at least 2 characters long'
-        ) {
-          setFailureMessage("description length is to short");
-        } else {
-          setFailureMessage(
-            "Please check your input data and try again, Remember: all fields are required"
-          );
+        const errorMessage = error.response.data;
+        switch (errorMessage) {
+          case 'Joi Error: card "phone" mast be a valid phone number':
+            setFailureMessage("Phone number is invalid");
+            break;
+          case 'Joi Error: card "mail" mast be a valid mail':
+            setFailureMessage("Email is invalid");
+            break;
+          case 'Joi Error: "title" length must be at least 2 characters long':
+            setFailureMessage(" Your title length is to short");
+            break;
+          case 'Joi Error: "subtitle" length must be at least 2 characters long':
+            setFailureMessage(" Your subtitle length is to short");
+            break;
+          case 'Joi Error: card "web" mast be a valid url':
+            setFailureMessage(" Website addrees inivalid");
+            break;
+          case 'Joi Error: "address.country" length must be at least 2 characters long':
+            setFailureMessage(" country is to short");
+            break;
+          case 'Joi Error: "address.city" length must be at least 2 characters long':
+            setFailureMessage(" city is to short");
+            break;
+          case 'Joi Error: "address.street" length must be at least 2 characters long':
+            setFailureMessage("Street name is to short");
+            break;
+          case 'Joi Error: "description" length must be at least 2 characters long':
+            setFailureMessage("description length is to short");
+            break;
+          default:
+            setFailureMessage("Please check your input data and try again, Remember: all fields are required");
         }
       } else {
         setFailureMessage("Failed to add item.");
       }
       setSuccessMessage("");
       setTimeout(() => setFailureMessage(""), 3000);
+      
     }
   };
   useEffect(() => {

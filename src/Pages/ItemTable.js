@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { ThemeContext } from "../context/ThemeContext";
-import { ListContext } from "../context/ListContext";
 import { BaseUrlusers, CardsStaticUrl } from "../Service/ConstantsApi";
 import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
-import {
-  generatePdf,
-  handleExportCSV,
-  handlePrint,
-} from "../HelperFunctions/tableUtils";
+import { generatePdf,handleExportCSV,handlePrint,} from "../HelperFunctions/tableUtils";
 
 function ItemTable() {
   const [items, setItems] = useState([]);

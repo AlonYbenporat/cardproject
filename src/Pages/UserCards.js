@@ -4,9 +4,9 @@ import { ThemeContext } from "../context/ThemeContext";
 import { ListContext } from "../context/ListContext";
 import axios from "axios";
 import { CardsStaticUrl } from "../Service/ConstantsApi";
-import CardItem from "../Components/CardItem";
 import Footer from "../Components/Footer";
 import CardItemLevel from "../Components/CardItemlevel";
+import "../Style/cards.css";
 
 function UserCards() {
   const { theme, reversedTheme } = useContext(ThemeContext);
@@ -15,6 +15,7 @@ function UserCards() {
   const { selectedItem, setSelectedItem } = useContext(ListContext);
   const storedToken = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
+  const [isTableView, setIsTableView] = useState(true);
 
   useEffect(() => {
     const config = {
@@ -40,7 +41,13 @@ function UserCards() {
         console.log(error);
       });
   }, []);
+  const handleTableView = () => {
+    setIsTableView(true);
+  };
 
+  const handleCardView = () => {
+    setIsTableView(false);
+  };
   const handleCardClick = (item) => {
     setSelectedItem(item);
   };
@@ -95,75 +102,124 @@ function UserCards() {
     <div className={`bg-${theme} `}>
       <NavBar></NavBar>
       <h1>My Cards</h1>
-      <div className="container">
-        <div className="row">
-          <div className="m-3">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder=" Search Box - you can try search Site Name OR Address."
-              className="form-control"
-            />
-          </div>
+      <div className="m-3">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder=" Search Box - you can try search Site Name OR Address."
+            className="form-control"
+          />
+        </div>
+      <div className="sizeltr">
+        {isTableView ? (
+         <i className="bi bi-card-image" onClick={handleCardView}></i>
+        ) : (
+          <i className="bi bi-table" onClick={handleTableView}></i> 
+          )}
+        
+       
+      </div>
 
-          {filteredItems.map((item, index) => (
-            <div key={item.id} className="col-md-4 mb-5">
-              <div
-                className={`card bg-${theme} `}
-                style={{ width: "300px", height: "500px" }}>
-                <button
-                  style={{ borderColor: "#FFFFFF" }}
-                  onClick={() => handleLike(item._id)}>
-                  {item.isLikedByUser ? (
-                    <i
-                      className="bi bi-heart-fill text-danger "
-                      style={{ cursor: "pointer", fontSize: "30px" }}></i>
-                  ) : (
-                    <i
-                      className="bi bi-heart"
-                      style={{ cursor: "pointer", fontSize: "28px" }}></i>
-                  )}{" "}
-                  <span style={{ marginLeft: "5px", fontSize: "30px" }}>
-                    {item.likes.length}
-                  </span>
-                </button>
-                <h4 className={`text-center text-${reversedTheme}`}>
-                  {item.title}
-                </h4>
-                <h5 className={`text-center  text-${reversedTheme} `}>{item.subtitle}</h5>
-                <a
-                  className="text-center"
-                  href={item.web}
-                  target="_blank"
-                  rel="noopener noreferrer ">
-                  {item.web}
-                </a>
-                <img
-                  onClick={() => handleCardClick(item)}
-                  className="img-fluid"
-                  src={item.image.url}
-                  alt={item.image.alt}
-                  style={{ width: "300px", height: "300px" }}
-                />
-                <div
-                  className={`card body p-2 bg-${theme}`}
-                  style={{ height: "100%" }}>
-                  <div
-                    className={`card-title text-${reversedTheme} text-center `}>
-                    <h5>
-                      {item.address.state}-{item.address.city}
-                    </h5>
-                    <h5>
-                      {item.address.street},{item.address.houseNumber}
-                    </h5>
+      {isTableView ? (
+        <table className="items text-center">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Subtitle</th>
+              <th>Description</th>
+              <th>Email</th>
+              <th>Web</th>
+              <th>Likes</th>
+              <th>Country</th>
+              <th>City</th>
+              <th>Street</th>
+              <th>House number</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {filteredItems.map((item) => (
+              <tr key={item._id}>
+                <td>{item.title}</td>
+                <td>{item.subtitle}</td>
+                <td title={item.description}>
+                  {item.description.length > 10
+                  ? `${item.description.slice(0,10)}...`: item.web}
+                </td>
+                <td>{item.email}</td>
+                <td>
+                  <a href={item.web} target="_blank" rel="noopener noreferrer">{item.web}</a>
+                </td>
+                <td>
+                  <button onClick={() => handleLike(item._id)}>
+                    {item.isLikedByUser ? (
+                      <i className="bi bi-heart-fill text-danger" style={{ cursor: "pointer", fontSize: "20px" }}></i>
+                    ) : (
+                      <i className="bi bi-heart" style={{ cursor: "pointer", fontSize: "20px" }}></i>
+                    )}
+                    <span style={{ marginLeft: "5px" }}>{item.likes.length}</span>
+                  </button>
+                </td>
+                <td>
+                  {item.address.country}
+                </td>
+                <td>
+                  {item.address.city}
+                 </td>
+                <td>
+                  {item.address.street}
+                </td>
+                <td>
+                  {item.address.houseNumber}
+                </td>
+                    
+                  
+                
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div className="container">
+          <div className="row">
+            {filteredItems.map((item, index) => (
+              <div key={item.id} className="col-md-4 mb-5">
+                <div className={`card bg-${theme} `} style={{ width: "300px", height: "500px" }}>
+                  <button style={{ borderColor: "#FFFFFF" }} onClick={() => handleLike(item._id)}>
+                    {item.isLikedByUser ? (
+                      <i className="bi bi-heart-fill text-danger " style={{ cursor: "pointer", fontSize: "30px" }}></i>
+                    ) : (
+                      <i className="bi bi-heart" style={{ cursor: "pointer", fontSize: "28px" }}></i>
+                    )}{" "}
+                    <span style={{ marginLeft: "5px", fontSize: "30px" }}>
+                      {item.likes.length}
+                    </span>
+                  </button>
+                  <h4 className={`text-center text-${reversedTheme}`}>
+                    {item.title}
+                  </h4>
+                  <h5 className={`text-center  text-${reversedTheme} `}>{item.subtitle}</h5>
+                  <a className="text-center" href={item.web} target="_blank" rel="noopener noreferrer ">
+                    {item.web}
+                  </a>
+                  <img onClick={() => handleCardClick(item)} className="img-fluid" src={item.image.url} alt={item.image.alt} style={{ width: "300px", height: "300px" }} />
+                  <div className={`card body p-2 bg-${theme}`} style={{ height: "100%" }}>
+                    <div className={`card-title text-${reversedTheme} text-center `}>
+                      <h5>
+                        {item.address.state}-{item.address.city}
+                      </h5>
+                      <h5>
+                        {item.address.street},{item.address.houseNumber}
+                      </h5>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <Footer></Footer>
     </div>
   );
