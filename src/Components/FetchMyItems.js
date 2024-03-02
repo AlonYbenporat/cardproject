@@ -4,6 +4,7 @@ import axios from "axios";
 import { ListContext } from "../context/ListContext";
 import CardItem from "./CardItem";
 import { CardsStaticUrl } from "../Service/ConstantsApi";
+import "../Style/cards.css";
 
 
 function FetchMyItems() {
@@ -144,10 +145,10 @@ function FetchMyItems() {
               </a>
               <img
                 onClick={() => handleCardClick(item)}
-                className="img-fluid"
+                className="card-image"
                 src={item.image.url}
                 alt={item.image.alt}
-                style={{ width: "300px", height: "300px" }}
+               
               />
               <div
                 className={`card body p-2 bg-${theme}`}

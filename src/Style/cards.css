@@ -121,10 +121,19 @@ h3 {
   text-align: left;
   
 }
+.sizecenter {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 5px;
+  text-align: center;
+  -webkit-text-fill-color: #a42107
+  
+}
 .sizeltr {
   font-size: 40px;
   font-weight: bold;
-  margin: 5px;
+  margin-left: 5;
+  margin-right: 5;
   text-align: right;
   -webkit-text-fill-color: #a2a5a5;
 }
@@ -136,4 +145,13 @@ h3 {
   border: rgb(167, 171, 38);
   -webkit-text-stroke: 0px rgba(22, 18, 32, 0.942);
 
+}
+.card-image {
+  max-width: 300px; 
+  max-height: 225px; 
+  width: auto; 
+  height: auto; 
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 4px 2px rgba(230, 230, 230, 0.5);
 }

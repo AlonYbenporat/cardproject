@@ -203,7 +203,7 @@ function UserCards() {
                   <a className="text-center" href={item.web} target="_blank" rel="noopener noreferrer ">
                     {item.web}
                   </a>
-                  <img onClick={() => handleCardClick(item)} className="img-fluid" src={item.image.url} alt={item.image.alt} style={{ width: "300px", height: "300px" }} />
+                  <img onClick={() => handleCardClick(item)} className="card-image" src={item.image.url} alt={item.image.alt} style={{ width: "300px", height: "300px" }} />
                   <div className={`card body p-2 bg-${theme}`} style={{ height: "100%" }}>
                     <div className={`card-title text-${reversedTheme} text-center `}>
                       <h5>

@@ -42,30 +42,12 @@ function AddItems() {
     fetchItems();
   }, []);
 
+  const [formData, setFormData] = useState(initialFormData);
 
-  const [formData, setFormData] = useState({
-    title: "",
-    subtitle: "",
-    description: "",
-    phone: "",
-    email: "",
-    web: "",
-    image: {
-      url: "",
-      alt: "",
-    },
-    address: {
-      state: "",
-      country: "",
-      city: "",
-      street: "",
-      houseNumber: "",
-      zip: "",
-    },
-  });
   const resetForm = () => {
     setFormData(initialFormData);
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -73,6 +55,7 @@ function AddItems() {
       [name]: value,
     }));
   };
+
   const handleAddressChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -83,6 +66,7 @@ function AddItems() {
       },
     }));
   };
+
   const handleImageSelect = (selectedImage) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -92,6 +76,7 @@ function AddItems() {
       },
     }));
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -101,30 +86,11 @@ function AddItems() {
           "Content-Type": "application/json",
         },
       });
-    fetchItems();
-      setSuccessMessage("Card Wasd added successfully!");
+      fetchItems();
+      setSuccessMessage("Card added successfully!");
       setFailureMessage("");
       setTimeout(() => setSuccessMessage(""), 3000);
-      setFormData({
-        title: "",
-        subtitle: "",
-        description: "",
-        phone: "",
-        email: "",
-        web: "",
-        image: {
-          url: "",
-          alt: "",
-        },
-        address: {
-          state: "",
-          country: "",
-          city: "",
-          street: "",
-          houseNumber: "",
-          zip: "",
-        },
-      });
+      resetForm();
     } catch (error) {
       console.error(error);
       if (error.response && error.response.status === 400) {
@@ -137,68 +103,35 @@ function AddItems() {
             setFailureMessage("Email is invalid");
             break;
           case 'Joi Error: "title" length must be at least 2 characters long':
-            setFailureMessage(" Your title length is to short");
+            setFailureMessage(" Your title length is too short");
             break;
           case 'Joi Error: "subtitle" length must be at least 2 characters long':
-            setFailureMessage(" Your subtitle length is to short");
+            setFailureMessage(" Your subtitle length is too short");
             break;
           case 'Joi Error: card "web" mast be a valid url':
-            setFailureMessage(" Website addrees inivalid");
+            setFailureMessage(" Website address is invalid");
             break;
           case 'Joi Error: "address.country" length must be at least 2 characters long':
-            setFailureMessage(" country is to short");
+            setFailureMessage(" Country name is too short");
             break;
           case 'Joi Error: "address.city" length must be at least 2 characters long':
-            setFailureMessage(" city is to short");
+            setFailureMessage(" City name is too short");
             break;
           case 'Joi Error: "address.street" length must be at least 2 characters long':
-            setFailureMessage("Street name is to short");
+            setFailureMessage(" Street name is too short");
             break;
           case 'Joi Error: "description" length must be at least 2 characters long':
-            setFailureMessage("description length is to short");
+            setFailureMessage("Description length is too short");
             break;
           default:
-            setFailureMessage("Please check your input data and try again, Remember: all fields are required");
+            setFailureMessage("Please check your input data and try again. Remember: all fields are required");
         }
       } else {
         setFailureMessage("Failed to add item.");
       }
       setSuccessMessage("");
       setTimeout(() => setFailureMessage(""), 3000);
-      
     }
-  };
-  useEffect(() => {
-    const config = {
-      method: "get",
-      url: CardsStaticUrl,
-      headers: {
-        "X-API-Key": storedToken,
-      },
-    };
-
-    axios
-      .request(config)
-      .then((response) => {
-        const userItems = response.data
-          .filter((item) => item.user_id === userId)
-          .map((item) => ({
-            ...item,
-            isLikedByUser: item.likes.includes(userId),
-          }));
-        setItems(userItems);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
-  const config = {
-    method: "get",
-    url: CardsStaticUrl,
-    headers: {
-      "X-API-Key": storedToken,
-    },
   };
 
   const handleEdit = (editedItem) => {
@@ -225,6 +158,7 @@ function AddItems() {
       },
     });
   };
+
   const handleUpdate = async () => {
     try {
       const response = await axios.put(
@@ -243,20 +177,6 @@ function AddItems() {
       setEditMode(false);
       setFailureMessage("");
       setTimeout(() => setSuccessMessage(""), 3000);
-      axios
-        .request(config)
-        .then((response) => {
-          const userItems = response.data
-            .filter((item) => item.user_id === userId)
-            .map((item) => ({
-              ...item,
-              isLikedByUser: item.likes.includes(userId),
-            }));
-          setItems(userItems);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     } catch (error) {
       console.error("Failed to update card:", error);
       setFailureMessage("Failed to update card.");
@@ -281,20 +201,7 @@ function AddItems() {
       setSuccessMessage("Card deleted successfully!");
       setTimeout(() => setSuccessMessage(""), 3000);
 
-      axios
-        .request(config)
-        .then((response) => {
-          const userItems = response.data
-            .filter((item) => item.user_id === userId)
-            .map((item) => ({
-              ...item,
-              isLikedByUser: item.likes.includes(userId),
-            }));
-          setItems(userItems);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      fetchItems();
     } catch (error) {
       console.error("Failed to delete card:", error);
       setFailureMessage("Failed to delete card.");
@@ -315,20 +222,10 @@ function AddItems() {
                 type="submit"
                 className="btn btn-block"
                 disabled={
-                  !formData.title ||
-                  !formData.subtitle ||
-                  !formData.description ||
-                  !formData.phone ||
-                  !formData.email ||
-                  !formData.web ||
-                  !formData.image.url ||
-                  !formData.address.state ||
-                  !formData.address.country ||
-                  !formData.address.city ||
-                  !formData.address.street ||
-                  !formData.address.houseNumber ||
-                  !formData.address.zip
-                }
+                  !formData.title || !formData.subtitle ||!formData.description ||!formData.phone ||
+                  !formData.email || !formData.web || !formData.image.url || !formData.address.state ||
+                   !formData.address.country ||!formData.address.city ||  !formData.address.street ||
+                  !formData.address.houseNumber ||!formData.address.zip }
                 onClick={editMode ? handleUpdate : handleSubmit}>
                 {editMode ? "Update" : "Add"}
               </button>
@@ -490,7 +387,6 @@ function AddItems() {
                       onChange={handleAddressChange}
                       min="1000"
                       step="1"
-                      s
                       pattern="\d+"
                       inputMode="numeric"
                       required
@@ -499,7 +395,6 @@ function AddItems() {
                 </div>
               </div>
             </div>
-
             <div className="col-md-12">
               <div className="form-group">
                 <label>Select Image:</label>
@@ -539,43 +434,38 @@ function AddItems() {
             </div>
           </div>
         </form>
-
-        <h1 className="text-center">Owner Edit Cards</h1>
+        <h1 className="text-center">Your Cards</h1>
         <div className="container">
           <div className="row">
             {items.map((item) => (
               <div key={item._id} className="col-md-4 mb-4">
                 <div className="card">
-                  <div className="card-body">
+                  <div className="card-body text-center">
                     <h5 className="card-title">{item.title}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">
                       {item.subtitle}
-                    </h6>
-                    <p className="card-text">{item.description}</p>
+                    </h6>     
                     <p className="card-text">{item.phone}</p>
                     <p className="card-text">{item.email}</p>
-                    <p className="card-text">{item.web}</p>
-                    <p className="card-text">
+                    <a href={item.web} className="card-text">{item.web}</a>
+                    <p className="card-text ">
                       {item.address.street}, {item.address.houseNumber},{" "}
                       {item.address.city}, {item.address.state},{" "}
                       {item.address.country}, {item.address.zip}
                     </p>
                     <img
+                      className="card-image"
                       src={item.image.url}
-                      alt={item.image.alt}
-                      className="card-img-top"
+                      alt={item.image.alt}       
                     />
-                    <div className="text-center">
-                      <button
-                        className="btn btn-primary m-4"
-                        onClick={() => handleEdit(item)}>
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-danger m-4"
-                        onClick={() => handleDelete(item._id)}>
-                        Delete
-                      </button>
+                     <p className="card-text">
+    {item.description.length > 50
+      ? `${item.description.substring(0, 50)}...`
+      : item.description}
+  </p>
+                    <div className="sizecenter">
+                        <i className="bi bi-pencil-square m-4" onClick={() => handleEdit(item)}></i>
+                        <i class="bi bi-trash3 m-4"onClick={() => handleDelete(item._id)}></i>
                     </div>
                   </div>
                 </div>

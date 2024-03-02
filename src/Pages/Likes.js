@@ -5,6 +5,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { ListContext } from "../context/ListContext";
 import { CardsStaticUrl } from "../Service/ConstantsApi";
 import CardItemLevel from "../Components/CardItemlevel";
+import  "../Style/cards.css";
 
 function Likes() {
   const { theme, reversedTheme } = useContext(ThemeContext);
@@ -131,11 +132,11 @@ function Likes() {
                     {item.web}
                   </a>
                   <img
-                    className="img-fluid"
+                    className="card-image"
                     onClick={() => handleCardClick(item)}
                     src={item.image.url}
                     alt={item.image.alt}
-                    style={{ width: "300px", height: "300px" }}
+                   
                   />
                   <div
                     className={`card body p-2 bg-${theme}`}

@@ -28,7 +28,7 @@ function ItemTable() {
           const differenceInTime =
             currentDate.getTime() - createdDate.getTime();
           const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-          return selectedDays === -1 || differenceInDays <= selectedDays;
+    return selectedDays === -1 || differenceInDays <= selectedDays;
         });
         const itemsWithLikes = await Promise.all(
           filteredItems.map(async (item) => {
@@ -82,7 +82,6 @@ function ItemTable() {
           "x-auth-token": storedToken,
         },
       });
-
       if (response.status === 200) {
         const updatedItems = items.filter((item) => item._id !== itemId);
         setItems(updatedItems);
@@ -93,7 +92,6 @@ function ItemTable() {
       console.error("Error deleting item:", error);
     }
   };
-
   const filteredItems = items.filter((item) => {
     for (const key in item) {
       if (Object.prototype.hasOwnProperty.call(item, key)) {
