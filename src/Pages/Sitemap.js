@@ -89,13 +89,16 @@ function Sitemap() {
                 Zoom functionality for detailed card viewing available
                 site-wide.
               </li>
+              <li>
+                Serach functionality for most pages an easy way to find items.
+              </li>
             </ul>
             <li>
               <strong>Admin Access:</strong>
               <ul>
                 <li>
-                  Grant admin users access to users and item tables to manage
-                  and view details.
+                  Grant admin users access to users and item tables to Export,
+                  manage, Sort and view details .
                 </li>
               </ul>
             </li>

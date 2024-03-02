@@ -40,7 +40,7 @@ function HandleLogin({ show, onClose, onLogin }) {
       })
       .then((userResponse) => {
         localStorage.setItem("userId", response.user._id);
-        localStorage.setItem("user_Id", response.user_id);
+
         const userProp = userResponse.data;
         localStorage.setItem(`userProp51`, JSON.stringify(userProp));
         window.location.reload();
@@ -111,22 +111,6 @@ function HandleLogin({ show, onClose, onLogin }) {
       }
     };
   }, [alertTimeout]);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("user_id");
-    const fetchData = async () => {
-      try {
-        const userData = await fetchUserData(userId, token);
-        setUserProp(userData);
-
-        localStorage.setItem("UserDataProp", JSON.stringify(userData));
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-    fetchData();
-  }, []);
 
   const handleClose = () => {
     onClose();

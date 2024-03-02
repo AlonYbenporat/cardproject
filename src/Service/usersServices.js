@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BaseUrlusers, api } from "./ConstantsApi";
 
-const token = localStorage.getItem("token");
+const storedToken = localStorage.getItem("token");
 export const loginUser = (userEmail, userPassword) => {
   return api
     .post("users/login", {
@@ -45,19 +45,5 @@ export const registerUser = (userObj) => {
         success: false,
         message: error.response.data,
       };
-          });
-};
-
-export const fetchUserData = async (userId, token) => {
-  try {
-    const response = await axios.get(`${BaseUrlusers}${userId}`, {
-      headers: {
-        "x-auth-token": token,
-      },
     });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    return null;
-  }
 };
