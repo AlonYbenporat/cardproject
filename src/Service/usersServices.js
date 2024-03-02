@@ -45,7 +45,7 @@ export const registerUser = (userObj) => {
         success: false,
         message: error.response.data,
       };
-    });
+          });
 };
 
 export const fetchUserData = async (userId, token) => {

@@ -124,7 +124,9 @@ function AddItems() {
             setFailureMessage("Description length is too short");
             break;
           default:
-            setFailureMessage("Please check your input data and try again. Remember: all fields are required");
+            setFailureMessage(
+              "Please check your input data and try again. Remember: all fields are required"
+            );
         }
       } else {
         setFailureMessage("Failed to add item.");
@@ -222,10 +224,20 @@ function AddItems() {
                 type="submit"
                 className="btn btn-block"
                 disabled={
-                  !formData.title || !formData.subtitle ||!formData.description ||!formData.phone ||
-                  !formData.email || !formData.web || !formData.image.url || !formData.address.state ||
-                   !formData.address.country ||!formData.address.city ||  !formData.address.street ||
-                  !formData.address.houseNumber ||!formData.address.zip }
+                  !formData.title ||
+                  !formData.subtitle ||
+                  !formData.description ||
+                  !formData.phone ||
+                  !formData.email ||
+                  !formData.web ||
+                  !formData.image.url ||
+                  !formData.address.state ||
+                  !formData.address.country ||
+                  !formData.address.city ||
+                  !formData.address.street ||
+                  !formData.address.houseNumber ||
+                  !formData.address.zip
+                }
                 onClick={editMode ? handleUpdate : handleSubmit}>
                 {editMode ? "Update" : "Add"}
               </button>
@@ -439,15 +451,17 @@ function AddItems() {
           <div className="row">
             {items.map((item) => (
               <div key={item._id} className="col-md-4 mb-4">
-                <div className="card">
+                <div className={`card bg-${theme} text-${reversedTheme}`}>
                   <div className="card-body text-center">
                     <h5 className="card-title">{item.title}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">
                       {item.subtitle}
-                    </h6>     
+                    </h6>
                     <p className="card-text">{item.phone}</p>
                     <p className="card-text">{item.email}</p>
-                    <a href={item.web} className="card-text">{item.web}</a>
+                    <a href={item.web} className="card-text">
+                      {item.web}
+                    </a>
                     <p className="card-text ">
                       {item.address.street}, {item.address.houseNumber},{" "}
                       {item.address.city}, {item.address.state},{" "}
@@ -456,16 +470,20 @@ function AddItems() {
                     <img
                       className="card-image"
                       src={item.image.url}
-                      alt={item.image.alt}       
+                      alt={item.image.alt}
                     />
-                     <p className="card-text">
-    {item.description.length > 50
-      ? `${item.description.substring(0, 50)}...`
-      : item.description}
-  </p>
+                    <p className="card-text">
+                      {item.description.length > 50
+                        ? `${item.description.substring(0, 50)}...`
+                        : item.description}
+                    </p>
                     <div className="sizecenter">
-                        <i className="bi bi-pencil-square m-4" onClick={() => handleEdit(item)}></i>
-                        <i class="bi bi-trash3 m-4"onClick={() => handleDelete(item._id)}></i>
+                      <i
+                        className="bi bi-pencil-square m-4"
+                        onClick={() => handleEdit(item)}></i>
+                      <i
+                        class="bi bi-trash3 m-4"
+                        onClick={() => handleDelete(item._id)}></i>
                     </div>
                   </div>
                 </div>

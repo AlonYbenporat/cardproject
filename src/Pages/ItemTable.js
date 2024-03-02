@@ -4,7 +4,11 @@ import { ThemeContext } from "../context/ThemeContext";
 import { BaseUrlusers, CardsStaticUrl } from "../Service/ConstantsApi";
 import NavBar from "../Components/NavBar";
 import Footer from "../Components/Footer";
-import { generatePdf,handleExportCSV,handlePrint,} from "../HelperFunctions/tableUtils";
+import {
+  generatePdf,
+  handleExportCSV,
+  handlePrint,
+} from "../HelperFunctions/tableUtils";
 
 function ItemTable() {
   const [items, setItems] = useState([]);
@@ -28,7 +32,7 @@ function ItemTable() {
           const differenceInTime =
             currentDate.getTime() - createdDate.getTime();
           const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-    return selectedDays === -1 || differenceInDays <= selectedDays;
+          return selectedDays === -1 || differenceInDays <= selectedDays;
         });
         const itemsWithLikes = await Promise.all(
           filteredItems.map(async (item) => {

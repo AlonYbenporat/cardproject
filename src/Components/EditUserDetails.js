@@ -34,7 +34,6 @@ function EditUserDetails({ show, onClose }) {
   });
 
   useEffect(() => {
-    console.log("userdata-Edit:", userData);
     if (userData) {
       setFormData(userData);
     }

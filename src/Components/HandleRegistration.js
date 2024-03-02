@@ -3,6 +3,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
 import { UsersApiBaseURL } from "../Service/ConstantsApi";
 import { resetFormData } from "../Service/formUtils";
+import "../Style/cards.css";
 
 function HandleRegistration() {
   const [show, setShow] = useState(false);
@@ -13,7 +14,7 @@ function HandleRegistration() {
 
   useEffect(() => {
     const isAdminlogin = localStorage.getItem("isAdmin") === "true";
-    if ( isAdminlogin) {
+    if (isAdminlogin) {
       setIsAdminlogin(true);
     }
   }, []);
@@ -70,58 +71,62 @@ function HandleRegistration() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
 
     axios
       .post(`${UsersApiBaseURL}/users`, formData)
       .then((response) => {
-        if (formData.isBusiness){
-          alert("You are registered successfully! Business is a trial for 30 days.")
+        if (formData.isBusiness) {
+          alert(
+            "You are registered successfully! Business is a trial for 30 days."
+          );
           handleClose();
           resetFormData(setFormData);
-          
         } else {
-        setAlertShow(true);
-        setTimeout(() => {
-        setAlertShow(false);
-        }, 2000);
-        handleClose();
-        resetFormData(setFormData);
-      }
+          setAlertShow(true);
+          setTimeout(() => {
+            setAlertShow(false);
+          }, 2000);
+          handleClose();
+          resetFormData(setFormData);
+        }
       })
       .catch((error) => {
-        console.error("eroor status of data",error.response.data)
-        console.error("eroor status",error.response.status)
+        console.error("eroor status of data", error.response.data);
+        console.error("eroor status", error.response.status);
         console.error("Error adding user:", error);
-        if (error.response && error.response.status ===400) {
+        if (error.response && error.response.status === 400) {
           const errorMessage = error.response.data;
           switch (errorMessage) {
-              case "User already registered":
-                alert("User already registered");
-                break;
-                case 'Joi Error: user "phone" mast be a valid phone number':
-                alert(" invalid phone number");
-                break;
-                case 'Joi Error: user "mail" mast be a valid mail':
-                alert("Email is invalid");
-                break;
-                case 'Joi Error: user "password" must be at least nine characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-':
-                alert("Password requirements: at least nine characters long, contain an uppercase letter lowercase letter number,special character");
-                break;
+            case "User already registered":
+              alert("User already registered");
+              break;
+            case 'Joi Error: user "phone" mast be a valid phone number':
+              alert(" invalid phone number");
+              break;
+            case 'Joi Error: user "mail" mast be a valid mail':
+              alert("Email is invalid");
+              break;
+            case 'Joi Error: user "password" must be at least nine characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-':
+              alert(
+                "Password requirements: at least nine characters long, contain an uppercase letter lowercase letter number,special character"
+              );
+              break;
             default:
-                alert("An error occurred while registering. Please try again.");
+              alert("An error occurred while registering. Please try again.");
           }
         } else {
-            alert("Failed to register. Make sure you fill up all fields and try again.");
+          alert(
+            "Failed to register. Make sure you fill up all fields and try again."
+          );
         }
       });
   };
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>
-        <i className="bi bi-person-plus m-3"> Register</i>
-      </Button>
+      <button className="btn" onClick={handleShow}>
+        Register
+      </button>
       <Modal
         show={show}
         onHide={handleClose}
@@ -180,7 +185,7 @@ function HandleRegistration() {
                 onChange={handleInputChange}
                 required
               />
-               <Form.Label>State</Form.Label>
+              <Form.Label>State</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Enter your State"
@@ -247,16 +252,17 @@ function HandleRegistration() {
                   setFormData({ ...formData, isBusiness: e.target.checked })
                 }
               />
-              {isAdminlogin &&(
-              <Form.Check
-                type="checkbox"
-                label="User Is an Admin"
-                name="isAdmin"
-                checked={formData.isAdmin}
-                onChange={(e) =>
-                  setFormData({ ...formData, isAdmin: e.target.checked })
-                }
-              />)}
+              {isAdminlogin && (
+                <Form.Check
+                  type="checkbox"
+                  label="User Is an Admin"
+                  name="isAdmin"
+                  checked={formData.isAdmin}
+                  onChange={(e) =>
+                    setFormData({ ...formData, isAdmin: e.target.checked })
+                  }
+                />
+              )}
             </Form.Group>
             <Button
               className="m-3 "
@@ -278,7 +284,7 @@ function HandleRegistration() {
         <div
           className="alert alert-success position-fixed top-0 end-0 m-3"
           role="alert">
-          You are registered successfully! Please login.
+          You are registered successfully! You can now login.
         </div>
       )}
     </div>

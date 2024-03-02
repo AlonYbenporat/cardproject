@@ -1,5 +1,5 @@
 :root {
-  --gradient: linear-gradient(to left top, #dd2476 10%, #ff512f 90%) !important;
+  --gradient: linear-gradient(to left top, #9a1cde 10%, #123deb 90%) !important;
 }
 
 .custom-card {
@@ -15,7 +15,7 @@
 
 .btn {
   border: 5px solid;
-  border-image-slice: 1;
+  border-image-slice: 12;
   background: var(--gradient) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -29,8 +29,8 @@
   background: var(--gradient) !important;
   -webkit-background-clip: none !important;
   -webkit-text-fill-color: #fff !important;
-  border: 5px solid #fff !important;
-  box-shadow: #222 1px 0 10px;
+  border: 5px solid #efefef !important;
+  box-shadow: #e916f0 1px 0 10px;
   text-decoration: underline;
 }
 
@@ -119,15 +119,13 @@ h3 {
   font-weight: bold;
   margin: 5px;
   text-align: left;
-  
 }
 .sizecenter {
   font-size: 30px;
   font-weight: bold;
   margin: 5px;
   text-align: center;
-  -webkit-text-fill-color: #a42107
-  
+  -webkit-text-fill-color: #a42107;
 }
 .sizeltr {
   font-size: 40px;
@@ -137,21 +135,35 @@ h3 {
   text-align: right;
   -webkit-text-fill-color: #a2a5a5;
 }
-.lgfont{
+.lgfont {
   font-size: 50px;
   margin: 5px;
   font-weight: bold;
   color: #b83217;
   border: rgb(167, 171, 38);
   -webkit-text-stroke: 0px rgba(22, 18, 32, 0.942);
-
 }
 .card-image {
-  max-width: 300px; 
-  max-height: 225px; 
-  width: auto; 
-  height: auto; 
+  max-width: 300px;
+  max-height: 225px;
+  width: auto;
+  height: auto;
   border-radius: 8px;
   border: 1px solid #ddd;
   box-shadow: 0 0 4px 2px rgba(230, 230, 230, 0.5);
+}
+
+nav {
+  text-align: center;
+  padding: 14px 16px;
+  background-color: #4596f3;
+}
+.sun-icon {
+  color: rgb(228, 179, 55);
+  font-size: 30px;
+}
+
+.moon-icon {
+  color: rgb(245, 238, 238);
+  font-size: 30px;
 }

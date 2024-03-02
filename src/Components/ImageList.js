@@ -1,4 +1,3 @@
-// imageList.js
 import { useState } from "react";
 
 export const useImageList = () => {

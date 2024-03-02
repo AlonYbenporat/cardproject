@@ -6,7 +6,6 @@ import CardItem from "./CardItem";
 import { CardsStaticUrl } from "../Service/ConstantsApi";
 import "../Style/cards.css";
 
-
 function FetchMyItems() {
   const [items, setItems] = useState([]);
   const { theme, reversedTheme } = useContext(ThemeContext);
@@ -115,8 +114,8 @@ function FetchMyItems() {
             <div
               className={`card bg-${theme} text-${reversedTheme} `}
               style={{ width: "300px", height: "500px" }}>
-                
-              <button
+              <div
+                className={`text-center`}
                 style={{ borderColor: "#FFFFFF" }}
                 onClick={() => handleLike(item._id)}>
                 {item.isLikedByUser ? (
@@ -131,15 +130,17 @@ function FetchMyItems() {
                 <span style={{ marginLeft: "5px", fontSize: "30px" }}>
                   {item.likes.length}
                 </span>
-              </button>
+              </div>
               <h4 className={`text-center text-${reversedTheme}`}>
                 {item.title}
               </h4>
               <h5 className="text-center">{item.subtitle}</h5>
               <a
                 className="text-center"
-                href={item.web.startsWith("http") ? item.web : `http://${item.web}`}
-                target='blank'
+                href={
+                  item.web.startsWith("http") ? item.web : `http://${item.web}`
+                }
+                target="blank"
                 rel="noopener noreferrer ">
                 {item.web}
               </a>
@@ -148,7 +149,6 @@ function FetchMyItems() {
                 className="card-image"
                 src={item.image.url}
                 alt={item.image.alt}
-               
               />
               <div
                 className={`card body p-2 bg-${theme}`}

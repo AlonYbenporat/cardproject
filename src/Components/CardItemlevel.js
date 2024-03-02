@@ -3,25 +3,24 @@ import { ListContext } from "../context/ListContext";
 import { ThemeContext } from "../context/ThemeContext";
 import Footer from "./Footer";
 
-
 function CardItemLevel() {
   const { theme, reversedTheme } = useContext(ThemeContext);
   const { selectedItem, setSelectedItem } = useContext(ListContext);
 
-  
-  
   const handleGoBack = () => {
     setSelectedItem(null);
   };
-  
+
   const { title, subtitle, description, image, phone, email, web, address } =
     selectedItem || {};
-   return (
-   <div className={`bg-${theme}`}>
+  return (
+    <div className={`bg-${theme}`}>
       <div
         className={`card  bg-${theme} mx-auto m-3 `}
         style={{ width: "600px", height: "800px" }}>
-        <i  className="lgfont bi bi-arrow-counterclockwise m-4 text-center" onClick={handleGoBack}></i>
+        <i
+          className="lgfont bi bi-arrow-counterclockwise m-4 text-center"
+          onClick={handleGoBack}></i>
         <h1 className={`card-title text-center text-${reversedTheme}`}>
           {title}
         </h1>

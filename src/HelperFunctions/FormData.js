@@ -7,7 +7,7 @@ const initialFormData = {
   web: "",
   image: {
     url: "",
-    alt: "",
+          alt: "",
   },
   address: {
     state: "",

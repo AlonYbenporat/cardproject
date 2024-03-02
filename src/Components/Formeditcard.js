@@ -8,7 +8,6 @@ const FormEditCards = ({
   handleSubmit,
   editMode,
   disableSubmit,
-  setShowModal,
 }) => {
   return (
     <Modal.Body>

@@ -84,7 +84,6 @@ function HandleAddItems() {
       setSuccessMessage("Card Wasd added successfully!");
       setFailureMessage("");
       setTimeout(() => setSuccessMessage(""), 3000);
-      console.log(JSON.stringify(response.data));
       setFormData({
         title: "",
         subtitle: "",
@@ -113,10 +112,8 @@ function HandleAddItems() {
     }
   };
   const handleEdit = (editedItem) => {
-    console.log("Editing item:", editedItem);
     setEditMode(true);
     setEditItemId(editedItem._id);
-    console.log("Edit item ID:", editedItem._id);
     setFormData({
       title: editedItem.title,
       subtitle: editedItem.subtitle,
@@ -154,7 +151,6 @@ function HandleAddItems() {
         item._id === editItemId ? response.data : item
       );
       setAddedItems(updatedItems);
-      console.log("Card updated successfully:", response.data);
       setSuccessMessage("Card updated successfully!");
       resetForm();
       setEditMode(false);
@@ -187,7 +183,6 @@ function HandleAddItems() {
   };
   return (
     <div className={`bg-${theme} text-${reversedTheme}`}>
-      {console.log("Component re-rendered with updated data:", addedItems)}
       <NavBar />
       <h1>Add Card to site</h1>
       <div className="container">

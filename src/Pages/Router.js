@@ -8,6 +8,7 @@ import UserCards from "./UserCards.js";
 import Likes from "./Likes.js";
 import AddItems from "./AddItems.js";
 import ItemTable from "./ItemTable.js";
+import Sitemap from "./Sitemap.js";
 
 function Router() {
   const isAdmin = localStorage.getItem("isAdmin") === "true";
@@ -43,9 +44,10 @@ function Router() {
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/MyCards" element={<UserCards></UserCards>} />
         <Route path="/MyLikes" element={<Likes></Likes>} />
+        <Route path="SiteMap" element={<Sitemap></Sitemap>} />
       </Routes>
     </BrowserRouter>
-    );
+  );
 }
 
 export default Router;
@@ -54,8 +56,6 @@ export default Router;
   /*Misiion 
         1.  Error fetching user data: usersservice 62 
 		    2. דף txt להסבר על המערכת
-        3. דף אודות על התממשקות האתר
-        4.Desigh 
         5.my cards toltals 
          
  

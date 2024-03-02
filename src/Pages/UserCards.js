@@ -103,22 +103,20 @@ function UserCards() {
       <NavBar></NavBar>
       <h1>My Cards</h1>
       <div className="m-3">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder=" Search Box - you can try search Site Name OR Address."
-            className="form-control"
-          />
-        </div>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder=" Search Box - you can try search Site Name OR Address."
+          className="form-control"
+        />
+      </div>
       <div className="sizeltr">
         {isTableView ? (
-         <i className="bi bi-card-image" onClick={handleCardView}></i>
+          <i className="bi bi-card-image" onClick={handleCardView}></i>
         ) : (
-          <i className="bi bi-table" onClick={handleTableView}></i> 
-          )}
-        
-       
+          <i className="bi bi-table" onClick={handleTableView}></i>
+        )}
       </div>
 
       {isTableView ? (
@@ -135,7 +133,6 @@ function UserCards() {
               <th>City</th>
               <th>Street</th>
               <th>House number</th>
-              
             </tr>
           </thead>
           <tbody>
@@ -145,37 +142,35 @@ function UserCards() {
                 <td>{item.subtitle}</td>
                 <td title={item.description}>
                   {item.description.length > 10
-                  ? `${item.description.slice(0,10)}...`: item.web}
+                    ? `${item.description.slice(0, 10)}...`
+                    : item.web}
                 </td>
                 <td>{item.email}</td>
                 <td>
-                  <a href={item.web} target="_blank" rel="noopener noreferrer">{item.web}</a>
+                  <a href={item.web} target="_blank" rel="noopener noreferrer">
+                    {item.web}
+                  </a>
                 </td>
                 <td>
                   <button onClick={() => handleLike(item._id)}>
                     {item.isLikedByUser ? (
-                      <i className="bi bi-heart-fill text-danger" style={{ cursor: "pointer", fontSize: "20px" }}></i>
+                      <i
+                        className="bi bi-heart-fill text-danger"
+                        style={{ cursor: "pointer", fontSize: "20px" }}></i>
                     ) : (
-                      <i className="bi bi-heart" style={{ cursor: "pointer", fontSize: "20px" }}></i>
+                      <i
+                        className="bi bi-heart"
+                        style={{ cursor: "pointer", fontSize: "20px" }}></i>
                     )}
-                    <span style={{ marginLeft: "5px" }}>{item.likes.length}</span>
+                    <span style={{ marginLeft: "5px" }}>
+                      {item.likes.length}
+                    </span>
                   </button>
                 </td>
-                <td>
-                  {item.address.country}
-                </td>
-                <td>
-                  {item.address.city}
-                 </td>
-                <td>
-                  {item.address.street}
-                </td>
-                <td>
-                  {item.address.houseNumber}
-                </td>
-                    
-                  
-                
+                <td>{item.address.country}</td>
+                <td>{item.address.city}</td>
+                <td>{item.address.street}</td>
+                <td>{item.address.houseNumber}</td>
               </tr>
             ))}
           </tbody>
@@ -184,28 +179,52 @@ function UserCards() {
         <div className="container">
           <div className="row">
             {filteredItems.map((item, index) => (
-              <div key={item.id} className="col-md-4 mb-5">
-                <div className={`card bg-${theme} `} style={{ width: "300px", height: "500px" }}>
-                  <button style={{ borderColor: "#FFFFFF" }} onClick={() => handleLike(item._id)}>
+              <div key={item.id} className="col-md-4 mb-5 ">
+                <div
+                  className={`card bg-${theme} `}
+                  style={{ width: "300px", height: "500px" }}>
+                  <div
+                    className={`text-center text-${reversedTheme}`}
+                    style={{ borderColor: "#FFFFFF" }}
+                    onClick={() => handleLike(item._id)}>
                     {item.isLikedByUser ? (
-                      <i className="bi bi-heart-fill text-danger " style={{ cursor: "pointer", fontSize: "30px" }}></i>
+                      <i
+                        className="bi bi-heart-fill text-danger "
+                        style={{ cursor: "pointer", fontSize: "30px" }}></i>
                     ) : (
-                      <i className="bi bi-heart" style={{ cursor: "pointer", fontSize: "28px" }}></i>
+                      <i
+                        className="bi bi-heart"
+                        style={{ cursor: "pointer", fontSize: "28px" }}></i>
                     )}{" "}
                     <span style={{ marginLeft: "5px", fontSize: "30px" }}>
                       {item.likes.length}
                     </span>
-                  </button>
+                  </div>
                   <h4 className={`text-center text-${reversedTheme}`}>
                     {item.title}
                   </h4>
-                  <h5 className={`text-center  text-${reversedTheme} `}>{item.subtitle}</h5>
-                  <a className="text-center" href={item.web} target="_blank" rel="noopener noreferrer ">
+                  <h5 className={`text-center  text-${reversedTheme} `}>
+                    {item.subtitle}
+                  </h5>
+                  <a
+                    className="text-center"
+                    href={item.web}
+                    target="_blank"
+                    rel="noopener noreferrer ">
                     {item.web}
                   </a>
-                  <img onClick={() => handleCardClick(item)} className="card-image" src={item.image.url} alt={item.image.alt} style={{ width: "300px", height: "300px" }} />
-                  <div className={`card body p-2 bg-${theme}`} style={{ height: "100%" }}>
-                    <div className={`card-title text-${reversedTheme} text-center `}>
+                  <img
+                    onClick={() => handleCardClick(item)}
+                    className="card-image"
+                    src={item.image.url}
+                    alt={item.image.alt}
+                    style={{ width: "300px", height: "300px" }}
+                  />
+                  <div
+                    className={`card body p-2 bg-${theme}`}
+                    style={{ height: "100%" }}>
+                    <div
+                      className={`card-title text-${reversedTheme} text-center `}>
                       <h5>
                         {item.address.state}-{item.address.city}
                       </h5>
