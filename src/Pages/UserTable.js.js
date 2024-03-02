@@ -175,12 +175,12 @@ function UserTable() {
       <h3>Business Users: {totalBusinessUsers}</h3>
       <div className="size">
         <i
-          class="bi bi-filetype-csv m-2"
+          className="bi bi-filetype-csv m-2"
           onClick={() => handleExportCSV(filteredUsers)}></i>
         <i
-          class="bi bi-file-pdf m-2"
+          className="bi bi-file-pdf m-2"
           onClick={() => generateUsersPdf(filteredUsers)}></i>
-        <i class="bi bi-printer m-2" onClick={handlePrint}></i>
+        <i className="bi bi-printer m-2" onClick={handlePrint}></i>
       </div>
       <table className="items text-center">
         <thead>
@@ -243,7 +243,7 @@ function UserTable() {
                 <i className="bi bi-sort-up"></i>
               )}
             </th>
-            <th>Actions</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -264,11 +264,13 @@ function UserTable() {
                   id={`cbToggleDisplay-${user._id}`}
                   checked={user.isBusiness}
                   className="form-check-input"
-                  onClick={() => handleEdit(user._id)}
+                  onChange={() => handleEdit(user._id)}
                 />
               </td>
               <td>
-                <i className="bi bi-trash" onClick={() => handleDelete(user._id)}></i>
+                <i
+                  className=" sizetrash bi bi-trash"
+                  onClick={() => handleDelete(user._id)}></i>
               </td>
             </tr>
           ))}
@@ -278,5 +280,4 @@ function UserTable() {
     </div>
   );
 }
-
 export default UserTable;

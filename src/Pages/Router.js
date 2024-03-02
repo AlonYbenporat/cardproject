@@ -49,12 +49,4 @@ function Router() {
     </BrowserRouter>
   );
 }
-
 export default Router;
-
-{
-  /*
-		    2. דף txt להסבר על המערכת
-        5.my cards toltals 
-  */
-}

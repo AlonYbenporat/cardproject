@@ -63,7 +63,6 @@ function HandleLogin({ show, onClose, onLogin }) {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting login request with data:", formData);
     try {
       if (loginAttempts >= 3) {
         setFormData({

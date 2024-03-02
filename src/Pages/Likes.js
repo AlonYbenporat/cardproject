@@ -5,7 +5,7 @@ import { ThemeContext } from "../context/ThemeContext";
 import { ListContext } from "../context/ListContext";
 import { CardsStaticUrl } from "../Service/ConstantsApi";
 import CardItemLevel from "../Components/CardItemlevel";
-import  "../Style/cards.css";
+import "../Style/cards.css";
 
 function Likes() {
   const { theme, reversedTheme } = useContext(ThemeContext);
@@ -71,7 +71,6 @@ function Likes() {
       <>
         <NavBar />
         <CardItemLevel />
-
       </>
     );
   }
@@ -95,9 +94,9 @@ function Likes() {
       <NavBar />
       <div className={`bg-${theme}`}>
         <h1 className={`text-center text-${reversedTheme}`}>
-          <button type="button" class="btn btn-primary m-3 ">
+          <button type="button" className="btn m-3 ">
             Total likes: {totaUserlLikes}{" "}
-            <span class="badge badge-secondary"></span>
+            <span className="badge badge-secondary"></span>
           </button>
         </h1>
         <div className="container">
@@ -112,7 +111,7 @@ function Likes() {
               />
             </div>
             {filteredItems.map((item, index) => (
-              <div key={item.id} className="col-md-4 mb-5">
+              <div key={item._id} className="col-md-4 mb-5">
                 <div
                   className={`card bg-${theme} text-center text-${reversedTheme} `}
                   style={{ width: "300px", height: "500px" }}>
@@ -136,7 +135,6 @@ function Likes() {
                     onClick={() => handleCardClick(item)}
                     src={item.image.url}
                     alt={item.image.alt}
-                   
                   />
                   <div
                     className={`card body p-2 bg-${theme}`}

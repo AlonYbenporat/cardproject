@@ -167,3 +167,8 @@ nav {
   color: rgb(245, 238, 238);
   font-size: 30px;
 }
+.sizetrash {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 5px;
+}

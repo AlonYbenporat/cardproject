@@ -162,14 +162,16 @@ function ItemTable() {
           <option value={90}>Last 90 days</option>
           <option value={120}>Last 120 days</option>
         </select>
-        <i class="bi bi-funnel"></i>
+        <i className="bi bi-funnel"></i>
       </h3>
       <div className="size">
         <i
-          class="bi bi-filetype-csv m-2"
+          className="bi bi-filetype-csv m-2"
           onClick={() => handleExportCSV(filteredItems)}></i>
-        <i class="bi bi-file-pdf m-2" onClick={() => generatePdf(items)}></i>
-        <i class="bi bi-printer m-2" onClick={handlePrint}></i>
+        <i
+          className="bi bi-file-pdf m-2"
+          onClick={() => generatePdf(items)}></i>
+        <i className="bi bi-printer m-2" onClick={handlePrint}></i>
       </div>
       <table className="items text-center">
         <thead>
@@ -179,7 +181,7 @@ function ItemTable() {
             <th scope="col" onClick={() => handleSort("likes")}>
               <i
                 className="bi bi-heart-fill text-danger "
-                style={{ cursor: "pointer", fontSize: "18px" }}></i>
+                style={{ cursor: "pointer", fontSize: "20px" }}></i>
             </th>
             <th scope="col" onClick={() => handleSort("title")}>
               Title{" "}
@@ -263,7 +265,7 @@ function ItemTable() {
               <th scope="row">{index + 1}</th>
               <td>
                 <i
-                  className="bi bi-trash"
+                  className="sizetrash bi bi-trash"
                   onClick={() => handleDelete(item._id)}></i>
               </td>
               <td
