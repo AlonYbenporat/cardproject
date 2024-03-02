@@ -110,7 +110,7 @@ function FetchMyItems() {
           />
         </div>
         {filteredItems.map((item, index) => (
-          <div key={item.id} className="col-md-4 mb-5">
+          <div key={item._id} className="col-md-4 mb-5">
             <div
               className={`card bg-${theme} text-${reversedTheme} `}
               style={{ width: "300px", height: "500px" }}>
