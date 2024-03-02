@@ -167,7 +167,7 @@ function UserCards() {
                             top: "50%",
                             left: "50%",
                             transform: "translate(-50%, -50%)",
-                            fontSize: "12px",
+                            fontSize: "14px",
                           }}>
                           {item.likes.length}
                         </span>
@@ -184,7 +184,7 @@ function UserCards() {
                             top: "50%",
                             left: "50%",
                             transform: "translate(-50%, -50%)",
-                            fontSize: "12px",
+                            fontSize: "14px",
                           }}>
                           {item.likes.length}
                         </span>
