@@ -16,6 +16,7 @@ function UserCards() {
   const storedToken = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const [isTableView, setIsTableView] = useState(true);
+  const totalLikes = items.reduce((acc, item) => acc + item.likes.length, 0);
 
   useEffect(() => {
     const config = {
@@ -111,6 +112,9 @@ function UserCards() {
           className="form-control"
         />
       </div>
+
+      <h3>Total items: {items.length}</h3>
+      <h3>Total likes: {totalLikes}</h3>
       <div className="sizeltr">
         {isTableView ? (
           <i className="bi bi-card-image" onClick={handleCardView}></i>
