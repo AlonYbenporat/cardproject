@@ -152,20 +152,45 @@ function UserCards() {
                   </a>
                 </td>
                 <td>
-                  <button onClick={() => handleLike(item._id)}>
+                  <div
+                    className={`text-center text-${reversedTheme}`}
+                    style={{ position: "relative" }}>
                     {item.isLikedByUser ? (
-                      <i
-                        className="bi bi-heart-fill text-danger"
-                        style={{ cursor: "pointer", fontSize: "20px" }}></i>
+                      <div style={{ position: "relative" }}>
+                        <i
+                          className="bi bi-heart-fill text-danger"
+                          style={{ cursor: "pointer", fontSize: "25px" }}
+                          onClick={() => handleLike(item._id)}></i>
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            fontSize: "12px",
+                          }}>
+                          {item.likes.length}
+                        </span>
+                      </div>
                     ) : (
-                      <i
-                        className="bi bi-heart"
-                        style={{ cursor: "pointer", fontSize: "20px" }}></i>
+                      <div style={{ position: "relative" }}>
+                        <i
+                          className="bi bi-heart"
+                          style={{ cursor: "pointer", fontSize: "25px" }}
+                          onClick={() => handleLike(item._id)}></i>
+                        <span
+                          style={{
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            fontSize: "12px",
+                          }}>
+                          {item.likes.length}
+                        </span>
+                      </div>
                     )}
-                    <span style={{ marginLeft: "5px" }}>
-                      {item.likes.length}
-                    </span>
-                  </button>
+                  </div>
                 </td>
                 <td>{item.address.country}</td>
                 <td>{item.address.city}</td>

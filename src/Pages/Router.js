@@ -53,17 +53,8 @@ function Router() {
 export default Router;
 
 {
-  /*Misiion 
-        1.  Error fetching user data: usersservice 62 
+  /*
 		    2. דף txt להסבר על המערכת
         5.my cards toltals 
-         
- 
-        
-
-        
-       
-        
-
   */
 }
