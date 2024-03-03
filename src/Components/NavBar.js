@@ -58,10 +58,6 @@ function NavBar() {
     setActiveDropdownItem(itemName);
   };
 
-  const handleDropdownItemMouseOut = () => {
-    setActiveDropdownItem(null);
-  };
-
   return (
     <nav className={`navbar navbar-expand-sm`}>
       <div className="container-fluid">
