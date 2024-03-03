@@ -48,10 +48,7 @@ function CardItem({ items }) {
         <h4 className={`text-${reversedTheme} text-center`}>{subtitle}</h4>
 
         <div>
-          <i
-            className={`bi bi-telephone m-3 p-2 ${
-              theme === "dark" ? "text-light" : ""
-            }`}></i>
+          <i className={`bi bi-telephone m-3 p-2 text-${reversedTheme}`}></i>
           <a href={`tel:${phone}`}>{phone}</a>
         </div>
         <div>
@@ -63,19 +60,13 @@ function CardItem({ items }) {
         </div>
 
         <div>
-          <i
-            className={`bi bi-globe m-3 p-2 ${
-              theme === "dark" ? "text-light" : ""
-            }`}></i>
+          <i className={`bi bi-globe m-3 p-2 text-${reversedTheme}`}></i>
           <a href={web} target="_blank" rel="noopener noreferrer">
             {web}
           </a>
         </div>
         <div>
-          <i
-            className={`bi bi-geo-alt m-3 p-2 ${
-              theme === "dark" ? "text-light" : ""
-            }`}></i>
+          <i className={`bi bi-geo-alt m-3 p-2 text-${reversedTheme}`}></i>
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
               address.street + address.houseNumber
